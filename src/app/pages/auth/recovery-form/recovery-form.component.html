@@ -1,0 +1,32 @@
+<div class="card shadow-lg border-0 rounded-lg mt-5 pb-4">
+    <div class="card-body">
+        
+        <h3 class="text-center font-weight-light my-4">Password Recovery</h3>
+
+        <div class="small text-center mb-3 text-muted">Enter your email address and we will send you a link to reset your password.</div>
+
+        <!-- <form *ngIf="!showPrompt" [formGroup]="recoveryForm" (ngSubmit)="onSubmit()"> -->
+        <form *ngIf="!showPrompt" [formGroup]="recoveryForm">
+            <div class="mb-3">
+                <label for="inputEmail">Email address</label>
+                <input formControlName="email" class="form-control" id="inputEmail" type="email" placeholder="name@example.com" required>
+                <div *ngIf="errorCode == 'auth/invalid-email'" class="small text-danger">{{errorMessage}}</div>
+            </div>
+            <div class="d-grid gap-2 mt-4">
+                <button class="btn btn-primary btn">Submit</button>
+            </div>
+            <div class="text-center mt-5 mb-0">
+                <a class="small" href="#" routerLink="/auth/login">Return to login</a>
+            </div>
+        </form>
+
+        <div *ngIf="showPrompt" class="row p5 text-center">
+            <div class="col">
+                <img src="../../../../assets/images/success.png" class="mb-4 prompt-image mx-auto">
+                <p class="lead">Email Submitted</p>
+                <p class="lead">Plese check your inbox to confirm your account</p>
+            </div>
+        </div>
+
+    </div>
+</div>

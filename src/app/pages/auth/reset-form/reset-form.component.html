@@ -1,0 +1,39 @@
+<div class="card shadow-lg border-0 rounded-lg mt-5 pb-4">
+    <div class="card-body">
+
+        <h3 class="text-center font-weight-light my-4">Reset Password</h3>
+        
+        <!-- <form *ngIf="!showPrompt" [formGroup]="resetForm" (ngSubmit)="onSubmit()"> -->
+        <form *ngIf="!showPrompt" [formGroup]="resetForm">
+            <div class="mb-3">
+                <label for="inputPassword">Password</label>
+                <input class="form-control" id="inputPassword" type="password" />
+            </div>
+            <div class="mb-3">
+                <label for="inputPassword">Password</label>
+                <input class="form-control" formControlName="password1" id="inputPassword" type="password" />
+                <div *ngIf="errorCode == 'auth/weak-password'" class="small text-danger">{{errorMessage}}</div>
+            </div>
+            <div class="mb-3">
+                <label for="inputPasswordConfirm">Confirm Password</label>
+                <input class="form-control" formControlName="password2" id="inputPasswordConfirm" type="password" />
+                <div *ngIf="passwordMismatch" class="small text-danger">Passwords do not match</div>
+            </div>
+            <div class="d-grid gap-2 mt-5">
+                <button [disabled]="isSending" class="btn btn-primary btn">Rsest</button>
+            </div>
+        </form>
+
+        <div *ngIf="showPrompt" class="row p5 text-center">
+            <div class="col">
+                <img src="../../../../assets/images/success.png" class="mb-4 prompt-image mx-auto">
+                <p class="lead">Password reset successful</p>
+                <p class="lead">Continue to login</p>
+                <div class="d-grid gap-2 mt-5">
+                    <button routerLink="/auth/login" class="btn btn-primary btn">Login</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

@@ -1,0 +1,19 @@
++ pages
+    + auth (Mr)(Cp)
+        + login form (C)
+        + recovery form (C)
+        + reset form (C)
+    + modules
+        + vendor orders
+            + all orders (C)
+            + new order (C)
+            + add order (C)
+            + order items (C)
+            + order item form (C)
+            + add order item (C)
+            + edit order item (C)
+        + supplier purchasing
++ components
++ services
++ models
++ guards
