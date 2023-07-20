@@ -1,0 +1,8 @@
+<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+    <div [ngClass]="isShowToast ? 'show' : 'hide'" id="liveToast" class="toast text-white bg-danger border-0 connection-toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-body p-3">
+            <i class="h4 bi bi-x-circle me-3"></i>
+            Could not connect.
+        </div>
+    </div>
+</div>

@@ -14,6 +14,18 @@
             + edit order item (C)
         + supplier purchasing
 + components
+    + select windows (M)
+        + select order (C)
+        + select product (C)
+        + select purchasing (C)
+        + select stock item (C)
+    + module utilities (M)
+        + connection toast (C)
+        + delete modal one (C)
+        + delete modal two (C)
+        + table sorting (C)			
+        + table loading (C)			
+        + table paginator (C)
 + services
 + models
 + guards

@@ -1,0 +1,5 @@
+<i *ngIf="(thisColumn != sortColumn) || (sortColumn == '')" class="bi bi-filter icon-pointer" (click)="doSort('asc')"></i>
+<i *ngIf="(thisColumn == sortColumn) && (sortDirection == 'asc')" class="bi bi-sort-down icon-pointer" (click)="doSort('desc')"></i>
+<i *ngIf="(thisColumn == sortColumn) && (sortDirection == 'desc')" class="bi bi-sort-up icon-pointer" (click)="doSort('asc')"></i>
+
+<span class="field-title ms-2">{{fieldTitle}}</span>
