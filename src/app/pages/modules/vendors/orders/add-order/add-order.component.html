@@ -1,0 +1,73 @@
+<button [hidden]="true" #newButtonElementReference data-bs-toggle="modal" data-bs-target="#addOrderModal">
+    Launch demo modal
+</button>
+
+<div class="modal fade form-modal" id="addOrderModal" tabindex="-1" aria-labelledby="addOrderModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <form [formGroup]="orderForm">
+
+                <div class="modal-header bg-light">
+                    <span class="modal-title" id="addOrderModalLabel">Add New Order</span>
+                    <button #dismissButtonElementReference type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body">
+                    <div class="row mb-1">
+                        <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Order ID :</label></div>
+                        <div class="col-md-8">
+                            <input formControlName="orderCode" class="form-control form-control-sm w-100">
+                        </div>
+                    </div>
+
+                    <div class="row mb-1">
+                        <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Order Date :</label></div>
+                        <div class="col-md-8">
+                            <input type="datetime-local" formControlName="orderDate" class="form-control form-control-sm w-100">
+                        </div>
+                    </div>
+
+                    <div class="row mb-1">
+                        <div class="col-md-4">
+                            <label class="float-md-end float-sm-start mt-1"><span class="text-danger me-1">*</span>Vendor ID :</label>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="input-group input-group-sm w-100">
+                                <input formControlName="vendorCode" class="form-control" [ngClass]="{ 'is-invalid': isSaved && !selectedVendorId }" required>
+                                <button type="button" class="btn btn-secondary" (click)="openVendorWindow()">
+                                    <i class="bi bi-three-dots"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mb-1">
+                        <div class="col-md-4">
+                            <label class="float-md-end float-sm-start mt-1"><span class="text-danger me-1">*</span>Vendor Name :</label>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="input-group input-group-sm w-100">
+                                <input formControlName="vendorName" class="form-control" [ngClass]="{ 'is-invalid': isSaved && orderForm.controls.vendorName.invalid }" required>
+                                <button type="button" class="btn btn-secondary" (click)="openVendorWindow()">
+                                    <i class="bi bi-three-dots"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-sm btn-success form-control-btn" [disabled]="isSavingOrder || isFetchingData" (click)="createOrder()">Save</button>
+                    <button type="button" class="btn btn-sm btn-warning form-control-btn" data-bs-dismiss="modal">Cancel</button>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+</div>
+
+<!-- select vendor component -->
+
+<!-- <app-select-vendor #selectVendorComponentReference (rowSelected)="onVendorSelected($event)" [closeTarget]="'#addOrderModal'"></app-select-vendor> -->

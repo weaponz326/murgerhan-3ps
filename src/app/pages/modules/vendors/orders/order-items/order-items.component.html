@@ -1,0 +1,73 @@
+<div class="row">
+    <div class="col-md-8">
+        <div class="card shadow-sm mb-4">
+            <div class="card-body">
+                
+                <p class="lead">Order Items</p>
+                
+                <div class="row">
+                    <div class="col">
+                
+                        <div class="overflow-auto">
+                            <table class="table table-bordered table-sm w-100 page-table">
+                                <thead>
+                                    <tr class="bg-light">
+                                        <th width="5%" class="min-width-1">No.</th>
+                                        <th width="35%" class="min-width-3">Product Name</th>
+                                        <th width="15%" class="min-width-2">Price</th>
+                                        <th width="10%" class="min-width-2">Quantity</th>
+                                        <th width="15%" class="min-width-2">Total Price</th>
+                                        <th width="10%" class="p-0 min-width-2">
+                                            <button class="btn btn-primary btn-sm w-100" (click)="addOrderItem.openModal(lastItem)">
+                                                <i class="bi bi-plus"></i>
+                                            </button>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let data of orderItemListData">
+                                        <td>{{data?.data().item_number}}</td>
+                                        <td>{{data?.data().product?.data?.product_name}}</td>
+                                        <td>{{data?.data().product?.data?.price | currency:'GBP'}}</td>
+                                        <td>{{data?.data().quantity}}</td>
+                                        <td>{{data?.data().product?.data?.price * data?.data().quantity | currency:'GBP'}}</td>
+                                        <td class="p-0">
+                                            <button class="btn btn-sm btn-success border w-50" (click)="openEditItem(data)">
+                                                <i class="bi bi-pen"></i>
+                                            </button>
+                                            <button class="btn btn-sm btn-danger border w-50" (click)="confirmDelete(data.id)">
+                                                <i class="bi bi-trash"></i>
+                                            </button>
+                                        </td>
+                                    </tr>      
+                                    <tr *ngIf="isFetchingData || !isDataAvailable">
+                                        <td colspan="6">
+                                            <app-table-loading [loaderSize]="'sm'" [isLoading]="isFetchingData" [isNoData]="isDataAvailable"></app-table-loading>
+                                        </td>
+                                    </tr>                          
+                                    <tr class="bg-light">
+                                        <td colspan="4"></td>
+                                        <td class="fw-bold">{{totalPrice | currency:'GBP'}}</td>
+                                        <td></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- add and edit item modal components -->
+
+<app-add-order-item #addOrderItemComponentReference (saveItemEvent)="createOrderItem($event)"></app-add-order-item>
+
+<app-edit-order-item #editOrderItemComponentReference (saveItemEvent)="updateOrderItem($event)"></app-edit-order-item>
+
+<!-- delete confirmation modal component -->
+
+<app-delete-modal-two #deleteModalTwoComponentReference (confirmEvent)="deleteOrderItem()"></app-delete-modal-two>
