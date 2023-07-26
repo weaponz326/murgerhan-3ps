@@ -1,0 +1,41 @@
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item active">
+        <a href="#" routerLink="/modules/inventory/purchasing/all-purchasing">All Purchasing</a>
+    </li>
+    <li class="breadcrumb-item active">
+        <a href="#" routerLink="/modules/inventory/purchasing/view-purchasing">View Purchasing</a>
+    </li>
+    <li class="breadcrumb-item active">
+        <a href="#" routerLink="/modules/inventory/purchasing/quality-checks">Purchasing Quality Checks</a>
+    </li>
+    <li class="breadcrumb-item active">
+        Quality Check Pictures
+    </li>
+</ol>
+
+<div class="row">
+    <div class="col">
+        <div class="card shadow-sm mb-4">
+            <div class="card-body">
+
+                <p class="lead">Purchasing Quality Check Pictures</p>
+
+                <div class="row mb-5">
+                    <div class="col">
+                        <input #imageInput [hidden]="true" type="file" multiple requiredFileType="image" class="d-none" (change)="onFileSelected($event)"/>
+                        <button class="btn btn-primary btn-sm add-item-btn" (click)="imageInput.click()">Add Image</button>
+                    </div>
+                </div>
+
+                <div class="row text-center">
+                    <div *ngFor="let data of purchasingCheckImageListData" class="col-md-3 mb-4">
+                        <a [href]="data?.data().url" class="thumbnail">
+                            <img class="image-thumbnail border rounded" [src]="data?.data().url" style="width: 180px; height: 150px;"/>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,77 @@
+<button [hidden]="true" #newButtonElementReference data-bs-toggle="modal" data-bs-target="#newPurchasingModal">
+    Launch demo modal
+</button>
+
+<div class="modal fade form-modal" id="newPurchasingModal" tabindex="-1" aria-labelledby="newPurchasingModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <form [formGroup]="purchasingForm">
+
+                <div class="modal-header bg-light">
+                    <span class="modal-title" id="newPurchasingModalLabel">Add New Purchasing</span>
+                    <button #dismissButtonElementReference type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body">
+                    <div class="row mb-1">
+                        <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Purchasing ID :</label></div>
+                        <div class="col-md-8">
+                            <input formControlName="purchasingCode" class="form-control form-control-sm w-100">
+                        </div>
+                    </div>
+
+                    <div class="row mb-1">
+                        <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Purchasing Date :</label></div>
+                        <div class="col-md-8">
+                            <input type="datetime-local" formControlName="purchasingDate" class="form-control form-control-sm w-100">
+                        </div>
+                    </div>
+
+                    <div class="row mb-1">
+                        <div class="col-md-4">
+                            <label class="float-md-end float-sm-start mt-1">Supplier ID :</label>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="input-group input-group-sm w-100">
+                                <input formControlName="supplierCode" class="form-control" required>
+                                <button type="button" class="btn btn-secondary" (click)="openSupplierWindow()">
+                                    <i class="bi bi-three-dots"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mb-1">
+                        <div class="col-md-4">
+                            <label class="float-md-end float-sm-start mt-1"><span class="text-danger me-1">*</span>Supplier Name :</label>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="input-group input-group-sm w-100">
+                                <input formControlName="supplierName" class="form-control" [ngClass]="{ 'is-invalid': isSaved && !selectedSupplierId }" required>
+                                <button type="button" class="btn btn-secondary" (click)="openSupplierWindow()">
+                                    <i class="bi bi-three-dots"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-sm btn-success form-control-btn" [disabled]="isSavingPurchasing || isFetchingData" (click)="createPurchasing()">Save</button>
+                    <button type="button" class="btn btn-sm btn-warning form-control-btn" data-bs-dismiss="modal">Cancel</button>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+</div>
+
+<!-- connection error toast component -->
+
+<app-connection-toast #connectionToastComponentReference></app-connection-toast>
+
+<!-- select supplier component -->
+
+<!-- <app-select-supplier #selectSupplierComponentReference (rowSelected)="onSupplierSelected($event)" [closeTarget]="'#newPurchasingModal'"></app-select-supplier> -->

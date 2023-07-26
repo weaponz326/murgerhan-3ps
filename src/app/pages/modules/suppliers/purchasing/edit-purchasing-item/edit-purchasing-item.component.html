@@ -1,0 +1,33 @@
+<button [hidden]="true" #editButtonElementReference data-bs-toggle="modal" data-bs-target="#editItemModal">
+    Launch demo modal
+</button>
+
+<div class="modal fade form-modal" id="editItemModal" tabindex="-1" aria-labelledby="editItemModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header bg-light">
+                <span class="modal-title" id="editItemModalLabel">Edit Item</span>
+                <button #dismissButtonElementReference type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+
+                <!-- item purchasing component -->
+
+                <app-purchasing-item-form #purchasingItemFormComponentReference (openItemWindow)="openItemWindow()"></app-purchasing-item-form>
+
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-sm btn-success form-control-btn" [disabled]="isItemSaving" (click)="saveItem()">Save</button>
+                <button class="btn btn-sm btn-warning form-control-btn" data-bs-dismiss="modal">Cancel</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- select product window -->
+
+<!-- <app-select-stock-item #selectStockItemComponentReference (rowSelected)="onItemSelected($event)" [closeTarget]="'#editItemModal'"></app-select-stock-item> -->

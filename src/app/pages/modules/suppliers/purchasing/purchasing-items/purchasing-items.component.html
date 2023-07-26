@@ -1,0 +1,82 @@
+<div class="row">
+
+    <div class="col-md-9">
+        <div class="card shadow-sm mb-4">
+            <div class="card-body">
+                
+                <p class="lead">Purchasing Items</p>
+                
+                <div class="row">
+                    <div class="col">
+                
+                        <div class="overflow-auto">
+                            <table class="table table-bordered table-sm w-100 page-table">
+                                <thead>
+                                    <tr class="bg-light">
+                                        <th width="5%" class="min-width-1">No.</th>
+                                        <th width="30%" class="min-width-4">Item Name</th>
+                                        <th width="10%" class="min-width-2">Price</th>
+                                        <th width="10%" class="min-width-2">Quantity</th>
+                                        <th width="15%" class="min-width-2">Total Price</th>
+                                        <th width="10%" class="min-width-2">Checks</th>
+                                        <th width="10%" class="p-0 min-width-2">
+                                            <button class="btn btn-primary btn-sm w-100" (click)="addPurchasingItem.openModal(lastItem)">
+                                                <i class="bi bi-plus"></i>
+                                            </button>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let data of purchasingItemListData">
+                                        <td>{{data?.data().item_number}}</td>
+                                        <td>{{data?.data().stock_item?.data?.item_name}}</td>
+                                        <td>{{data?.data().stock_item?.data?.unit_price | currency:'GBP'}}</td>
+                                        <td>{{data?.data().quantity}}</td>
+                                        <td>{{data?.data().stock_item?.data?.unit_price * data?.data().quantity | currency:'GBP'}}</td>
+                                        <td class="p-0">
+                                            <button class="btn btn-sm btn-light bpurchasing w-100" (click)="gotoChecks(data.id)">
+                                                <i class="bi bi-card-checklist me-2"></i>
+                                                <i class="bi bi-arrow-right"></i>
+                                            </button>
+                                        </td>
+                                        <td class="p-0">
+                                            <button class="btn btn-sm btn-success bpurchasing w-50" (click)="openEditItem(data)">
+                                                <i class="bi bi-pen"></i>
+                                            </button>
+                                            <button class="btn btn-sm btn-danger bpurchasing w-50" (click)="confirmDelete(data.id)">
+                                                <i class="bi bi-trash"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr *ngIf="isFetchingData || !isDataAvailable">
+                                        <td colspan="7">
+                                            <app-table-loading [loaderSize]="'sm'" [isLoading]="isFetchingData" [isNoData]="isDataAvailable"></app-table-loading>
+                                        </td>
+                                    </tr>
+                                    <tr class="bg-light">
+                                        <td colspan="4"></td>
+                                        <td class="fw-bold">{{totalPrice | currency:'GBP'}}</td>
+                                        <td colspan="2"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- add and edit item modal components -->
+
+<app-add-purchasing-item #addPurchasingItemComponentReference (saveItemEvent)="createPurchasingItem($event)"></app-add-purchasing-item>
+
+<app-edit-purchasing-item #editPurchasingItemComponentReference (saveItemEvent)="updatePurchasingItem($event)"></app-edit-purchasing-item>
+
+<!-- delete confirmation modal component -->
+
+<app-delete-modal-two #deleteModalTwoComponentReference (confirmEvent)="deletePurchasingItem()"></app-delete-modal-two>

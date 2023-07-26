@@ -1,0 +1,154 @@
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item active">
+        <a href="#" routerLink="/modules/inventory/purchasing/all-purchasing">All Purchasing</a>
+    </li>
+    <li class="breadcrumb-item active">View Purchasing</li>
+</ol>
+
+<div class="row">
+
+    <div class="col">
+        <div class="card shadow-sm mb-4">
+            <div class="card-body">
+
+                <p class="lead">View Purchasing</p>
+                
+                <form  [formGroup]="purchasingForm">
+                    <div class="row">
+                        <div class="col">
+
+                            <div class="row mb-1">
+                                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Purchasing ID :</label></div>
+                                <div class="col-md-8">
+                                    <input formControlName="purchasingCode" class="form-control form-control-sm w-100">
+                                </div>
+                            </div>
+        
+                            <div class="row mb-1">
+                                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Purchasing Date :</label></div>
+                                <div class="col-md-8">
+                                    <input type="datetime-local" formControlName="purchasingDate" class="form-control form-control-sm w-100">
+                                </div>
+                            </div>
+        
+                            <div class="row mb-1">
+                                <div class="col-md-4">
+                                    <label class="float-md-end float-sm-start mt-1">Supplier ID :</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="input-group input-group-sm w-100">
+                                        <input formControlName="supplierCode" class="form-control" required>
+                                        <button type="button" class="btn btn-secondary" (click)="openSupplierWindow()">
+                                            <i class="bi bi-three-dots"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+        
+                            <div class="row mb-1">
+                                <div class="col-md-4">
+                                    <label class="float-md-end float-sm-start mt-1"><span class="text-danger me-1">*</span>Supplier Name :</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="input-group input-group-sm w-100">
+                                        <input formControlName="supplierName" class="form-control" [ngClass]="{ 'is-invalid': isSaved && !selectedSupplierId }" required>
+                                        <button type="button" class="btn btn-secondary" (click)="openSupplierWindow()">
+                                            <i class="bi bi-three-dots"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row mb-1">
+                                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Purchasing Status :</label></div>
+                                <div class="col-md-8">
+                                    <select type="datetime-local" formControlName="purchasingStatus" class="form-control form-control-sm w-100">
+                                        <option value=""></option>
+                                        <option value="Processing">Processing</option>
+                                        <option value="Deleivered">Completed</option>
+                                        <option value="Cancelled">Cancelled</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-6">
+
+                            <div class="row mb-1">
+                                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Received By :</label></div>
+                                <div class="col-md-8">
+                                    <div class="input-group input-group-sm w-100">
+                                        <input formControlName="receivedBy" class="form-control">
+                                        <button type="button" class="btn btn-secondary" disabled>
+                                            <i class="bi bi-three-dots"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row mb-1">
+                                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Date Received :</label></div>
+                                <div class="col-md-8">
+                                    <input type="datetime-local" formControlName="dateReceived" class="form-control form-control-sm w-100">
+                                </div>
+                            </div>
+
+                            <div class="row mb-1">
+                                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Comments :</label></div>
+                                <div class="col-md-8">
+                                    <textarea rows="3" formControlName="comments" class="form-control form-control-sm w-100"></textarea>
+                                </div>
+                            </div>                                                                     
+
+                        </div>
+                    </div>
+                </form>
+
+                <div class="row mt-3 float-end">
+                    <div class="col">
+                        <button type="submit" class="btn btn-sm btn-success ms-2 form-control-btn" [disabled]="isFetchingData || isSavingPurchasing" (click)="updatePurchasing()">Save</button>
+                        <button type="button" class="btn btn-sm btn-danger ms-2 form-control-btn" [disabled]="isFetchingData || isDeletingPurchasing" (click)="confirmDelete()">Delete</button>
+                        <button type="button" class="btn btn-sm btn-warning ms-2 form-control-btn" routerLink="/modules/inventory/purchasing">Cancel</button>
+                    </div>
+                </div>     
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="row">
+    <div class="col-md-9">
+        <div class="row">
+            <div class="offset-md-8 col-md-4">
+                
+                <div class="card shadow-sm mb-4">
+                    <div class="card-body">
+                            
+                        <button class="btn btn-light border" (click)="onPrint()">
+                            <i class="bi bi-printer me-3"></i>
+                            Print Purchasing
+                        </button>
+
+                    </div>
+                </div>
+            
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- purchasing items comonent reference -->
+
+<!-- <app-purchasing-items></app-purchasing-items> -->
+
+<!-- connection error toast component -->
+
+<app-connection-toast #connectionToastComponentReference></app-connection-toast>
+
+<!-- delete confirmation modal component -->
+
+<app-delete-modal-one #deleteModalOneComponentReference (confirmEvent)="deletePurchasing()"></app-delete-modal-one>

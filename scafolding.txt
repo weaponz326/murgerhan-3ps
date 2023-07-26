@@ -4,15 +4,25 @@
         + recovery form (C)
         + reset form (C)
     + modules
-        + vendor orders
-            + all orders (C)
-            + new order (C)
-            + add order (C)
-            + order items (C)
-            + order item form (C)
-            + add order item (C)
-            + edit order item (C)
-        + supplier purchasing
+        + vendors
+            + orders (Mr)(Cp)
+                + all orders (C)
+                + add order (C)
+                + view order (C)
+                + order items (C)
+                + add order item (C)
+                + edit order item (C)
+                + order item form (C)
+        + suppliers
+            + purchasing (Mr)(Cp)
+                + all purchasing (C)
+                + new purchasing (C)
+                + view purchasing (C)
+                + purchasing items (C)
+                + add purchasing item (C)
+                + edit purchasing item (C)
+                + item purchasing form (C)
+                + purchasing quality checks (C)
 + components
     + select windows (M)
         + select order (C)

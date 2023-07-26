@@ -1,0 +1,58 @@
+<form  [formGroup]="purchasingItemForm">
+
+    <div class="row mb-1">
+        <div class="col-md-4">
+            <label class="float-md-end float-sm-start mt-1">Item No. :</label>
+        </div>
+        <div class="col-md-8">
+            <input formControlName="itemNumber" type="number" min="1" class="form-control form-control-sm w-100">
+        </div>
+    </div>
+
+    <div class="row mb-1">
+        <div class="col-md-4">
+            <label class="float-md-end float-sm-start mt-1">Stock Item ID :</label>
+        </div>
+        <div class="col-md-8">
+            <div class="input-group input-group-sm w-100">
+                <input formControlName="itemCode" class="form-control">
+                <button type="button" class="btn btn-secondary" (click)="openItemWindow.emit()">
+                    <i class="bi bi-three-dots"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mb-1">
+        <div class="col-md-4">
+            <label class="float-md-end float-sm-start mt-1"><span class="text-danger me-1">*</span>Stock Item Name :</label>
+        </div>
+        <div class="col-md-8">
+            <div class="input-group input-group-sm w-100">
+                <input formControlName="itemName" class="form-control" [ngClass]="{ 'is-invalid': isSaved && purchasingItemForm.controls.itemName.invalid }" required>
+                <button type="button" class="btn btn-secondary" (click)="openItemWindow.emit()">
+                    <i class="bi bi-three-dots"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mb-1">
+        <div class="col-md-4">
+            <label class="float-md-end float-sm-start mt-1">Unit Price :</label>
+        </div>
+        <div class="col-md-8">
+            <input formControlName="unitPrice" type="number" min="0" step=".01" class="form-control form-control-sm w-100">
+        </div>
+    </div>
+
+    <div class="row mb-1">
+        <div class="col-md-4">
+            <label class="float-md-end float-sm-start mt-1">Quantity :</label>
+        </div>
+        <div class="col-md-8">
+            <input formControlName="quantity" type="number" min="1" class="form-control form-control-sm w-100">
+        </div>
+    </div>
+
+</form>
