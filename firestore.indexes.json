@@ -1,0 +1,601 @@
+{
+  "indexes": [
+    {
+      "collectionGroup": "attendance_attendance",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "branch.id",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "created_at",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "attendance_attendance_personnel",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "attendance",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "created_at",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "attendance_attendance_sheet",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "attendance",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "created_at",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "attendance_attendance_sheet",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "attendance",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "date",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "created_at",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "attendance_attendance_sheet",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "attendance",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "date",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "personnel.id",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "created_at",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "attendance_attendance_sheet",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "attendance",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "personnel.id",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "created_at",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "attendance_attendance_sheet",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "branch",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "created_at",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "attendance_roster",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "branch.id",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "created_at",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "attendance_roster_batch",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "roster",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "created_at",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "attendance_roster_personnel",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "roster",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "created_at",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "attendance_roster_shift",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "roster",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "created_at",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "housekeeping_incident",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "branch.id",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "created_at",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "housekeeping_task",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "branch.id",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "created_at",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "housekeeping_task_image",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "task",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "created_at",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "housekeeping_task_item",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "task",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "created_at",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "housekeeping_unit",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "branch.id",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "created_at",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "inventory_item_category",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "branch.id",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "created_at",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "inventory_item_category_checklist",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "category",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "created_at",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "inventory_purchasing",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "branch.id",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "created_at",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "inventory_purchasing",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "branch.id",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "supplier.id",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "created_at",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "inventory_purchasing_check_image",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "purchasing_check",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "created_at",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "inventory_purchasing_item",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "purchasing",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "created_at",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "inventory_stock_item",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "branch.id",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "created_at",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "inventory_supplier",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "branch.id",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "created_at",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "inventory_supplier_item",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "supplier",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "created_at",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "maintenance_contractor",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "branch.id",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "created_at",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "maintenance_issue",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "branch.id",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "created_at",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "maintenance_issue",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "branch.id",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "system.id",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "created_at",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "maintenance_issue_image",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "issue",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "created_at",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "maintenance_service",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "branch.id",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "contractor.id",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "created_at",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "maintenance_service",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "branch.id",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "created_at",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "maintenance_service",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "branch.id",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "system.id",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "created_at",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "maintenance_system",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "branch.id",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "created_at",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "orders_order",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "branch.id",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "created_at",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "orders_order",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "branch.id",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "vendor.id",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "created_at",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "orders_order_item",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "order",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "created_at",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "orders_product",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "branch.id",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "created_at",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "orders_vendor",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "branch.id",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "created_at",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "orders_vendor_product",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "vendor",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "created_at",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "users_role",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "branch.id",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "created_at",
+          "order": "DESCENDING"
+        }
+      ]
+    }
+  ],
+  "fieldOverrides": []
+}

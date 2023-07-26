@@ -37,5 +37,13 @@
         + table loading (C)			
         + table paginator (C)
 + services
+    + auth api (S)
+    + modules api
+        + vendors api (S)
+        + suppliers api (S)
 + models
+    + auth (Cm)
+    + modules
+        + vendors (Cm)
+        + suppliers (Cm)
 + guards
