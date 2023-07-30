@@ -1,15 +1,15 @@
 import { Component, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-// import { serverTimestamp } from 'firebase/firestore';
+import { serverTimestamp } from 'firebase/firestore';
 
-// import { Order } from 'src/app/models/modules/orders/orders.model';
-// import { OrdersApiService } from 'src/app/services/modules-api/orders-api/orders-api.service';
+import { Order } from 'src/app/models/modules/vendors/vendors.model';
+import { VendorsApiService } from 'src/app/services/modules-api/vendors-api/vendors-api.service';
 // import { OrdersPrintService } from 'src/app/services/modules-print/orders-print/orders-print.service';
-// import { FormatIdService } from 'src/app/services/module-utilities/format-id/format-id.service';
+import { FormatIdService } from 'src/app/services/module-utilities/format-id/format-id.service';
 
-// import { ConnectionToastComponent } from 'src/app/components/module-utilities/connection-toast/connection-toast.component';
-// import { DeleteModalOneComponent } from 'src/app/components/module-utilities/delete-modal-one/delete-modal-one.component';
+import { ConnectionToastComponent } from 'src/app/components/module-utilities/connection-toast/connection-toast.component';
+import { DeleteModalOneComponent } from 'src/app/components/module-utilities/delete-modal-one/delete-modal-one.component';
 // import { SelectVendorComponent } from 'src/app/components/select-windows/orders-windows/select-vendor/select-vendor.component';
 
 
@@ -22,13 +22,13 @@ export class ViewOrderComponent {
 
   constructor(
     private router: Router,
-    // private ordersApi: OrdersApiService,
+    private vendorsApi: VendorsApiService,
     // private ordersPrint: OrdersPrintService,
-    // private formatId: FormatIdService,
+    private formatId: FormatIdService,
   ) {}
 
-  // @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
-  // @ViewChild('deleteModalOneComponentReference', { read: DeleteModalOneComponent, static: false }) deleteModal!: DeleteModalOneComponent;
+  @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
+  @ViewChild('deleteModalOneComponentReference', { read: DeleteModalOneComponent, static: false }) deleteModal!: DeleteModalOneComponent;
   // @ViewChild('selectVendorComponentReference', { read: SelectVendorComponent, static: false }) selectVendor!: SelectVendorComponent;
 
   orderData: any;
@@ -60,18 +60,18 @@ export class ViewOrderComponent {
     this.isFetchingData = true;
     const id = sessionStorage.getItem('orders_order_id') as string;
 
-    // this.ordersApi.getOrder(id)
-    //   .then((res) => {
-    //     console.log(res.data());
-    //     this.orderData = res;
-    //     this.isFetchingData = false;
-    //     this.setOrderData();        
-    //   }),
-    //   (err: any) => {
-    //     // console.log(err);
-    //     this.connectionToast.openToast();
-    //     this.isFetchingData = false;
-    //   };
+    this.vendorsApi.getOrder(id)
+      .then((res) => {
+        console.log(res.data());
+        this.orderData = res;
+        this.isFetchingData = false;
+        this.setOrderData();        
+      }),
+      (err: any) => {
+        // console.log(err);
+        this.connectionToast.openToast();
+        this.isFetchingData = false;
+      };
   }
 
   updateOrder() {       
@@ -83,16 +83,16 @@ export class ViewOrderComponent {
       const id = sessionStorage.getItem('orders_order_id') as string;
       let data = this.setUpdateOrderData();
 
-      // this.ordersApi.updateOrder(id, data)
-      //   .then((res) => {
-      //     // console.log(res);
-      //     this.isSavingOrder = false;
-      //   })
-      //   .catch((err) => {
-      //     // console.log(err);
-      //     this.connectionToast.openToast();
-      //     this.isSavingOrder = false;
-      //   });
+      this.vendorsApi.updateOrder(id, data)
+        .then((res) => {
+          // console.log(res);
+          this.isSavingOrder = false;
+        })
+        .catch((err) => {
+          // console.log(err);
+          this.connectionToast.openToast();
+          this.isSavingOrder = false;
+        });
     }
   }
 
@@ -101,23 +101,23 @@ export class ViewOrderComponent {
 
     const id = sessionStorage.getItem('orders_order_id') as string;
 
-    // this.ordersApi.deleteOrder(id)
-    //   .then((res) => {
-    //     // console.log(res);
-    //     this.router.navigateByUrl('modules/orders/orderes/all-orders')
-    //     this.isDeletingOrder = false;
-    //   })
-    //   .catch((err) => {
-    //     // console.log(err);
-    //     this.connectionToast.openToast();
-    //     this.isDeletingOrder = false;
-    //   });
+    this.vendorsApi.deleteOrder(id)
+      .then((res) => {
+        // console.log(res);
+        this.router.navigateByUrl('modules/orders/orderes/all-orders')
+        this.isDeletingOrder = false;
+      })
+      .catch((err) => {
+        // console.log(err);
+        this.connectionToast.openToast();
+        this.isDeletingOrder = false;
+      });
   }
 
   setOrderData(){
-    // this.orderForm.controls.orderCode.setValue(this.formatId.formatId(this.orderData.data().order_code, 5, "#", "RD"));
+    this.orderForm.controls.orderCode.setValue(this.formatId.formatId(this.orderData.data().order_code, 5, "#", "RD"));
     this.orderForm.controls.orderDate.setValue(this.orderData.data().order_date);
-    // this.orderForm.controls.vendorCode.setValue(this.formatId.formatId(this.orderData.data().vendor.data.vendor_code, 4, "#", "VE"));
+    this.orderForm.controls.vendorCode.setValue(this.formatId.formatId(this.orderData.data().vendor.data.vendor_code, 4, "#", "VE"));
     this.orderForm.controls.vendorName.setValue(this.orderData.data().vendor.data.vendor_name);
     this.orderForm.controls.orderStatus.setValue(this.orderData.data().order_status);
     this.orderForm.controls.deliveryDate.setValue(this.orderData.data().delivery_date);
@@ -129,36 +129,36 @@ export class ViewOrderComponent {
   }
 
   setUpdateOrderData(){
-    // let data: Order = {
-    //   created_at: this.orderData.data().created_at,
-    //   updated_at: serverTimestamp(),
-    //   order_code: this.orderData.data().order_code,
-    //   order_date: this.orderForm.controls.orderDate.value,
-    //   order_status: this.orderForm.controls.orderStatus.value as string,
-    //   delivery_date: this.orderForm.controls.deliveryDate.value,
-    //   total_price: 0.00,
-    //   vendor: {
-    //     id: this.selectedVendorData.id,
-    //     data: {
-    //       vendor_code: this.selectedVendorData.data.vendor_code,
-    //       vendor_name: this.selectedVendorData.data.vendor_name
-    //     }
-    //   },
-    //   branch: {
-    //     id: this.selectedBranchData.id,
-    //     data: {
-    //       branch_name: this.selectedBranchData.data.branch_name,
-    //       location: this.selectedBranchData.data.location
-    //     }
-    //   },
-    // }
+    let data: Order = {
+      created_at: this.orderData.data().created_at,
+      updated_at: serverTimestamp(),
+      order_code: this.orderData.data().order_code,
+      order_date: this.orderForm.controls.orderDate.value,
+      order_status: this.orderForm.controls.orderStatus.value as string,
+      delivery_date: this.orderForm.controls.deliveryDate.value,
+      total_price: 0.00,
+      vendor: {
+        id: this.selectedVendorData.id,
+        data: {
+          vendor_code: this.selectedVendorData.data.vendor_code,
+          vendor_name: this.selectedVendorData.data.vendor_name
+        }
+      },
+      branch: {
+        id: this.selectedBranchData.id,
+        data: {
+          branch_name: this.selectedBranchData.data.branch_name,
+          location: this.selectedBranchData.data.location
+        }
+      },
+    }
 
-    // // console.log(data);
-    // return data;
+    // console.log(data);
+    return data;
   }
 
   confirmDelete(){
-    // this.deleteModal.openModal();
+    this.deleteModal.openModal();
   }
 
   openVendorWindow(){

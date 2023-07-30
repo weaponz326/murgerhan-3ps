@@ -1,0 +1,54 @@
+.login-btn{
+  width: 6rem;
+}
+
+.user-info{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.add-item-btn{
+    width: 10rem;
+}
+
+.form-control-btn{
+    width: 5rem;
+}
+
+.table-hover tbody tr{
+	cursor: pointer;
+}
+
+.table td,
+.table th{
+  white-space: nowrap;
+  table-layout: fixed;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 0;
+}
+
+th.min-width-1{
+  min-width: 30px;
+}
+
+th.min-width-2{
+  min-width: 60px;
+}
+
+th.min-width-3{
+  min-width: 90px;
+}
+
+th.min-width-4{
+  min-width: 120px;
+}
+
+th.min-width-5{
+  min-width: 150px;
+}
+
+th.min-width-5{
+  min-width: 180px;
+}
