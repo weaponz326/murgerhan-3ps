@@ -11,13 +11,9 @@ const routes: Routes = [
     loadChildren: () => import("./pages/auth/auth.module").then(m => m.AuthModule)
   },
   {
-    path: "modules/vendors/orders",
-    loadChildren: () => import("./pages/modules/vendors/orders/orders.module").then(m => m.OrdersModule)
-  },
-  {
-    path: "modules/suppliers/purchasing",
-    loadChildren: () => import("./pages/modules/suppliers/purchasing/purchasing.module").then(m => m.PurchasingModule)
-  },
+    path: "home",
+    loadChildren: () => import("./pages/home/home.module").then(m => m.HomeModule)
+  },  
 ];
 
 @NgModule({

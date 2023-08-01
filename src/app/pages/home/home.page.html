@@ -1,0 +1,47 @@
+<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+    <!-- Navbar Brand-->
+    <a class="navbar-brand px-3" href="/#/landing">
+        <img src="../../../assets/images/murger-han/mh.png" alt="Logo" width="30" height="24" class="d-inline-block align-text-top rounded me-2">
+        Murger Han Hub
+    </a>
+  
+    <!-- Navbar-->
+    <ul *ngIf="isLoggedIn && !isAuthLoading" class="navbar-nav ms-auto me-3">        
+        <li class="nav-item dropdown ms-3">
+            <a class="nav-link dropdown-toggle" id="navbarUserDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-person-fill"></i>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end user-dropdown" aria-labelledby="navbarUserDropdown">
+                <li><p class="ms-3 user-info">{{email}}</p></li>
+                <li><hr class="dropdown-divider" /></li>
+                <!-- <li><a class="small dropdown-item" href="#!" routerLink="/settings">Settings</a></li> -->
+                <li><a class="small dropdown-item" href="#!" (click)="logout()">Logout</a></li>
+            </ul>
+        </li>
+    </ul>
+    <button *ngIf="!isLoggedIn && !isAuthLoading" routerLink="/auth/login" class="btn btn-sm btn-success ms-auto me-3 login-btn">
+        Login
+    </button>
+    <button *ngIf="isAuthLoading" disabled class="btn btn-sm btn-secondary ms-auto me-3 login-btn">.</button>
+</nav>
+
+
+<router-outlet></router-outlet>
+
+<!-- footer -->
+<footer class="py-4 bg-light mt-auto">
+    <div class="container-fluid px-4">
+        <div class="d-flex align-items-center justify-content-between small">
+            <div class="text-muted">&copy; Murger Han 2023</div>
+            <!-- <div>
+                <a href="#">Privacy Policy</a>
+                &middot;
+                <a href="#">Terms &amp; Conditions</a>
+            </div> -->
+        </div>
+    </div>
+</footer>
+
+<!-- connection error toast component -->
+
+<app-connection-toast #connectionToastComponentReference></app-connection-toast>
