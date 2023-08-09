@@ -1,7 +1,11 @@
 import { Component, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { ConnectionToastComponent } from 'src/app/components/module-utilities/connection-toast/connection-toast.component';
+
 import { AuthApiService } from 'src/app/services/auth-api/auth-api.service';
+import { UsersApiService } from 'src/app/services/modules-api/users-api/users-api.service';
+
+import { ConnectionToastComponent } from 'src/app/components/module-utilities/connection-toast/connection-toast.component';
+
 
 @Component({
   selector: 'app-home',
@@ -13,6 +17,7 @@ export class HomePage {
   constructor(
     private router: Router,
     private authApi: AuthApiService,
+    private usersApi: UsersApiService,
   ) { }
 
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
@@ -23,7 +28,7 @@ export class HomePage {
   name: string = "";
   email: string = "";
 
-  userRoleData: any;
+  thirdPartyRole: any;
   // basicProfileData: any;
 
   ngOnInit(): void {
@@ -57,46 +62,46 @@ export class HomePage {
       )
   }
 
-  getUserRole() {
+  getThirdPartyRole() {
     const id = localStorage.getItem('uid') as string;
 
-    // this.usersApi.getUserRole(id)
-    //   .then((res) => {
-    //     // console.log(res.data());
-    //     this.userRoleData = res;
+    this.usersApi.getThirdPartyRole(id)
+      .then((res) => {
+        // console.log(res.data());
+        this.thirdPartyRole = res;
 
-    //     try{
-    //       let data = {
-    //         id: this.userRoleData.id,
-    //         data: {
-    //           staff_code: this.userRoleData.data().staff_code,
-    //           full_name: this.userRoleData.data().full_name,
-    //           staff_role: this.userRoleData.data().staff_role,
-    //           branch: {
-    //             id: this.userRoleData.data().branch.id,
-    //             data: {
-    //               branch_name: this.userRoleData.data().branch.data.branch_name,
-    //               location: this.userRoleData.data().branch.data.location,
-    //             }
-    //           }
-    //         }
-    //       }
+        try{
+          let data = {
+            id: this.thirdPartyRole.id,
+            data: {
+              user_code: this.thirdPartyRole.data().user_code,
+              full_name: this.thirdPartyRole.data().full_name,
+              company_type: this.thirdPartyRole.data().company_type,
+              company: {
+                id: this.thirdPartyRole.data().company.id,
+                data: {
+                  company_code: this.thirdPartyRole.data().company.data.company_code,
+                  company_name: this.thirdPartyRole.data().company.data.company_name,
+                  phone: this.thirdPartyRole.data().company.data.phone,
+                  email: this.thirdPartyRole.data().company.data.email,
+                }
+              }
+            }
+          }
 
-    //       // console.log(data);
+          // console.log(data);
           
-    //       localStorage.setItem("selected_user_role", JSON.stringify(data));
-    //       localStorage.setItem("selected_branch", JSON.stringify(data.data.branch));
-    //       localStorage.setItem("user_role", String(data.data.staff_role));
-    //       this.branchName = JSON.parse(String(localStorage.getItem("selected_branch"))).data.branch_name;          
-    //     }
-    //     catch{
-    //       // console.log("probably not logged in!");
-    //     }
-    //   }),
-    //   (err: any) => {
-    //     // console.log(err);
-    //     this.connectionToast.openToast();
-    //   };
+          localStorage.setItem("selected_third_party_role", JSON.stringify(data));          
+          localStorage.setItem("selected_company", JSON.stringify(data.data.company));
+        }
+        catch{
+          // console.log("probably not logged in!");
+        }
+      }),
+      (err: any) => {
+        // console.log(err);
+        this.connectionToast.openToast();
+      };
   }
 
   logout(){

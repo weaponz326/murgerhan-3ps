@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { AuthApiService } from 'src/app/services/auth-api/auth-api.service';
+import { UsersApiService } from 'src/app/services/modules-api/users-api/users-api.service';
 
 
 @Component({
@@ -15,6 +16,7 @@ export class LoginFormComponent {
   constructor(
     private router: Router,
     private authApi: AuthApiService,
+    private usersApi: UsersApiService,
   ) { }
 
   loginForm = new FormGroup({
@@ -28,6 +30,8 @@ export class LoginFormComponent {
 
   saved: boolean = false;
   isSending: boolean = false;
+
+  roleData: any;
 
   onSubmit(){
     this.saved = true;
@@ -44,7 +48,6 @@ export class LoginFormComponent {
           this.isSending = false;
           
           localStorage.setItem('uid', res.user.uid);
-          this.router.navigateByUrl('/landing');
         },
         (err: any) => {
           // console.log(err);
@@ -54,6 +57,29 @@ export class LoginFormComponent {
           // console.log(this.errorCode, this.errorMessage)
         }
       )
+  }
+
+  getThirdPartyRole() {
+    this.isSending = true;
+    const id = localStorage.getItem('uid') as string;
+
+    this.usersApi.getThirdPartyRole(id)
+      .then((res) => {
+        // console.log(res);
+        this.roleData = res;
+        this.isSending = false;
+
+        if(this.roleData.data().company_type == "Vendor"){
+          this.router.navigateByUrl('/home/vendors/orders');
+        }
+        if(this.roleData.data().company_type == "Vendor"){
+          this.router.navigateByUrl('/home/suppliers/purchasing');
+        }
+      }),
+      (err: any) => {
+        // console.log(err);
+        this.isSending = false;
+      };
   }
 
 }

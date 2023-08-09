@@ -10,7 +10,7 @@ import { FormatIdService } from 'src/app/services/module-utilities/format-id/for
 
 import { ConnectionToastComponent } from 'src/app/components/module-utilities/connection-toast/connection-toast.component';
 import { DeleteModalOneComponent } from 'src/app/components/module-utilities/delete-modal-one/delete-modal-one.component';
-// import { SelectVendorComponent } from 'src/app/components/select-windows/orders-windows/select-vendor/select-vendor.component';
+// import { SelectBranchComponent } from 'src/app/components/select-windows/orders-windows/select-branch/select-branch.component';
 
 
 @Component({
@@ -29,14 +29,15 @@ export class ViewOrderComponent {
 
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
   @ViewChild('deleteModalOneComponentReference', { read: DeleteModalOneComponent, static: false }) deleteModal!: DeleteModalOneComponent;
-  // @ViewChild('selectVendorComponentReference', { read: SelectVendorComponent, static: false }) selectVendor!: SelectVendorComponent;
+  // @ViewChild('selectBranchComponentReference', { read: SelectBranchComponent, static: false }) selectBranch!: SelectBranchComponent;
 
   orderData: any;
   orderTotal = 0.00;
 
-  selectedVendorId: any;
-  selectedVendorData: any;
-  selectedBranchData: any = JSON.parse(String(localStorage.getItem("selected_branch")));
+  selectedVendorData: any = JSON.parse(String(localStorage.getItem("selected_company")));
+
+  selectedBranchId: any;
+  selectedBranchData: any;
 
   isFetchingData = false;
   isSavingOrder = false;
@@ -46,8 +47,8 @@ export class ViewOrderComponent {
   orderForm = new FormGroup({
     orderCode: new FormControl({value: '', disabled: true}),
     orderDate: new FormControl(),
-    vendorCode: new FormControl({value: '', disabled: true}),
-    vendorName: new FormControl({value: '', disabled: true}, Validators.required),
+    branchCode: new FormControl({value: '', disabled: true}),
+    branchName: new FormControl({value: '', disabled: true}, Validators.required),
     orderStatus: new FormControl(''),
     deliveryDate: new FormControl(),
   })
@@ -77,7 +78,7 @@ export class ViewOrderComponent {
   updateOrder() {       
     this.isSaved = true;
      
-    if(this.orderForm.valid && this.selectedVendorId){
+    if(this.orderForm.valid && this.selectedBranchId){
       this.isSavingOrder = true;
 
       const id = sessionStorage.getItem('orders_order_id') as string;
@@ -117,15 +118,15 @@ export class ViewOrderComponent {
   setOrderData(){
     this.orderForm.controls.orderCode.setValue(this.formatId.formatId(this.orderData.data().order_code, 5, "#", "RD"));
     this.orderForm.controls.orderDate.setValue(this.orderData.data().order_date);
-    this.orderForm.controls.vendorCode.setValue(this.formatId.formatId(this.orderData.data().vendor.data.vendor_code, 4, "#", "VE"));
-    this.orderForm.controls.vendorName.setValue(this.orderData.data().vendor.data.vendor_name);
+    this.orderForm.controls.branchCode.setValue(this.formatId.formatId(this.orderData.data().branch.data.branch_code, 4, "#", "VE"));
+    this.orderForm.controls.branchName.setValue(this.orderData.data().branch.data.branch_name);
     this.orderForm.controls.orderStatus.setValue(this.orderData.data().order_status);
     this.orderForm.controls.deliveryDate.setValue(this.orderData.data().delivery_date);
 
     this.orderTotal = this.orderData.data().total_price;
 
-    this.selectedVendorId = this.orderData.data().vendor.id;
-    this.selectedVendorData = this.orderData.data().vendor.data;
+    this.selectedBranchId = this.orderData.data().branch.id;
+    this.selectedBranchData = this.orderData.data().branch.data;
   }
 
   setUpdateOrderData(){
@@ -140,15 +141,15 @@ export class ViewOrderComponent {
       vendor: {
         id: this.selectedVendorData.id,
         data: {
-          vendor_code: this.selectedVendorData.data.vendor_code,
-          vendor_name: this.selectedVendorData.data.vendor_name
+          vendor_code: this.selectedVendorData.data.company_code,
+          vendor_name: this.selectedVendorData.data.company_name
         }
       },
       branch: {
-        id: this.selectedBranchData.id,
+        id: this.selectedBranchId,
         data: {
-          branch_name: this.selectedBranchData.data.branch_name,
-          location: this.selectedBranchData.data.location
+          branch_name: this.selectedBranchData.branch_name,
+          location: this.selectedBranchData.location
         }
       },
     }
@@ -161,17 +162,17 @@ export class ViewOrderComponent {
     this.deleteModal.openModal();
   }
 
-  openVendorWindow(){
-    // // console.log("You are opening select vendor window")
-    // this.selectVendor.openModal();
+  openBranchWindow(){
+    // // console.log("You are opening select branch window")
+    // this.selectBranch.openModal();
   }
 
-  onVendorSelected(vendorData: any){
-    // console.log(vendorData);
-    this.selectedVendorId = vendorData.id;
-    this.selectedVendorData = vendorData.data();
-    this.orderForm.controls.vendorCode.setValue(vendorData.data().vendor_code);
-    this.orderForm.controls.vendorName.setValue(vendorData.data().vendor_name);
+  onVendorselected(branchData: any){
+    // console.log(branchData);
+    this.selectedBranchId = branchData.id;
+    this.selectedBranchData = branchData.data();
+    this.orderForm.controls.branchCode.setValue(branchData.data().branch_code);
+    this.orderForm.controls.branchName.setValue(branchData.data().branch_name);
   }
 
   onPrint(){

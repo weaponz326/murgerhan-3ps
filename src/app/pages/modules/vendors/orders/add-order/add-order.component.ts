@@ -34,19 +34,18 @@ export class AddOrderComponent {
   isSaved = false;
 
   thisId = 0;
-
-  selectedVendorId: any;
-  selectedVendorData: any;
   
-  selectedBranchData: any = JSON.parse(String(localStorage.getItem("selected_branch")));
+  selectedVendorData: any = JSON.parse(String(localStorage.getItem("selected_company")));
+
+  selectedBranchId: any;
+  selectedBranchData: any;
 
   tomorrow: any = '';
 
   orderForm = new FormGroup({
     orderCode: new FormControl({value: '', disabled: true}),
     orderDate: new FormControl(),
-    vendorCode: new FormControl({value: '', disabled: true}),
-    vendorName: new FormControl({value: '', disabled: true}, Validators.required),
+    branchName: new FormControl(),
   })
 
   ngOnInit(): void {
@@ -92,7 +91,7 @@ export class AddOrderComponent {
   createOrder() {
     this.isSaved = true;
     
-    if(this.orderForm.valid && this.selectedVendorId){
+    if(this.orderForm.valid && this.selectedBranchId){
       this.isSavingOrder = true;
 
       let data = this.setCreateOrderData();
@@ -127,17 +126,17 @@ export class AddOrderComponent {
       delivery_date: null,
       total_price: 0.00,
       vendor: {
-        id: this.selectedVendorId,
+        id: this.selectedVendorData.id,
         data: {
-          vendor_code: this.selectedVendorData.vendor_code,
-          vendor_name: this.selectedVendorData.vendor_name
+          vendor_code: this.selectedVendorData.data.company_code,
+          vendor_name: this.selectedVendorData.data.company_name
         }
       },
       branch: {
-        id: this.selectedBranchData.id,
+        id: this.selectedBranchId,
         data: {
-          branch_name: this.selectedBranchData.data.branch_name,
-          location: this.selectedBranchData.data.location
+          branch_name: this.selectedBranchData.branch_name,
+          location: this.selectedBranchData.location
         }
       },
     }
@@ -146,17 +145,8 @@ export class AddOrderComponent {
     return data;
   }
 
-  openVendorWindow(){
-    // // console.log("You are opening select vendor window")
-    // this.selectVendor.openModal();
-  }
+  openBranchWindow(){
 
-  onVendorSelected(vendorData: any){
-    // console.log(vendorData);
-    this.selectedVendorId = vendorData.id;
-    this.selectedVendorData = vendorData.data();
-    // this.orderForm.controls.vendorCode.setValue(this.formatId.formatId(vendorData.data().vendor_code, 4, "#", "VE"));
-    this.orderForm.controls.vendorName.setValue(vendorData.data().vendor_name);
   }
 
 }
