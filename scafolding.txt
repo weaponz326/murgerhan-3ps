@@ -29,6 +29,7 @@
         + select product (C)
         + select purchasing (C)
         + select stock item (C)
+        + select branch (C)
     + module utilities (M)
         + connection toast (C)
         + delete modal one (C)

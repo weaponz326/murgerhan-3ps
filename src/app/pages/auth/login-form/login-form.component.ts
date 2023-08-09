@@ -45,9 +45,10 @@ export class LoginFormComponent {
       .then(
         (res: any) => {
           // console.log(res);
-          this.isSending = false;
-          
+          this.isSending = false;      
           localStorage.setItem('uid', res.user.uid);
+
+          this.getThirdPartyRole();
         },
         (err: any) => {
           // console.log(err);
@@ -72,7 +73,7 @@ export class LoginFormComponent {
         if(this.roleData.data().company_type == "Vendor"){
           this.router.navigateByUrl('/home/vendors/orders');
         }
-        if(this.roleData.data().company_type == "Vendor"){
+        if(this.roleData.data().company_type == "Supplier"){
           this.router.navigateByUrl('/home/suppliers/purchasing');
         }
       }),

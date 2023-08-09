@@ -59,7 +59,7 @@ export class ViewOrderComponent {
 
   getOrder() {
     this.isFetchingData = true;
-    const id = sessionStorage.getItem('orders_order_id') as string;
+    const id = sessionStorage.getItem('vendors_order_id') as string;
 
     this.vendorsApi.getOrder(id)
       .then((res) => {
@@ -81,7 +81,7 @@ export class ViewOrderComponent {
     if(this.orderForm.valid && this.selectedBranchId){
       this.isSavingOrder = true;
 
-      const id = sessionStorage.getItem('orders_order_id') as string;
+      const id = sessionStorage.getItem('vendors_order_id') as string;
       let data = this.setUpdateOrderData();
 
       this.vendorsApi.updateOrder(id, data)
@@ -100,7 +100,7 @@ export class ViewOrderComponent {
   deleteOrder() {
     this.isDeletingOrder = true;
 
-    const id = sessionStorage.getItem('orders_order_id') as string;
+    const id = sessionStorage.getItem('vendors_order_id') as string;
 
     this.vendorsApi.deleteOrder(id)
       .then((res) => {

@@ -72,8 +72,8 @@ export class AllOrdersComponent {
   viewOrder(orderId: any){
     // console.log(orderId);
 
-    sessionStorage.setItem("orders_order_id", orderId);
-    this.router.navigateByUrl("/modules/orders/orders/view-order");
+    sessionStorage.setItem("vendors_order_id", orderId);
+    this.router.navigateByUrl("/home/vendors/orders/view-order");
   }
 
   aggregateData(){

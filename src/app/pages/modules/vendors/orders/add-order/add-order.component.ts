@@ -45,7 +45,7 @@ export class AddOrderComponent {
   orderForm = new FormGroup({
     orderCode: new FormControl({value: '', disabled: true}),
     orderDate: new FormControl(),
-    branchName: new FormControl(),
+    branchName: new FormControl({value: '', disabled: true}, Validators.required),
   })
 
   ngOnInit(): void {
@@ -101,7 +101,7 @@ export class AddOrderComponent {
           // console.log(res);
 
           if(res.id){
-            sessionStorage.setItem('orders_order_id', res.id);
+            sessionStorage.setItem('vendors_order_id', res.id);
             this.router.navigateByUrl("/modules/orders/orders/view-order");
           }
 
