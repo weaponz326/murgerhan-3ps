@@ -8,7 +8,7 @@ import { VendorsApiService } from 'src/app/services/modules-api/vendors-api/vend
 import { FormatIdService } from 'src/app/services/module-utilities/format-id/format-id.service';
 
 import { ConnectionToastComponent } from 'src/app/components/module-utilities/connection-toast/connection-toast.component';
-// import { SelectVendorComponent } from 'src/app/components/select-windows/orders-windows/select-vendor/select-vendor.component';
+import { SelectBranchComponent } from 'src/app/components/select-windows/select-branch/select-branch.component';
 
 
 @Component({
@@ -27,7 +27,7 @@ export class AddOrderComponent {
   @ViewChild('newButtonElementReference', { read: ElementRef, static: false }) newButton!: ElementRef;
   @ViewChild('dismissButtonElementReference', { read: ElementRef, static: false }) dismissButton!: ElementRef;  
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
-  // @ViewChild('selectVendorComponentReference', { read: SelectVendorComponent, static: false }) selectVendor!: SelectVendorComponent;
+  @ViewChild('selectBranchComponentReference', { read: SelectBranchComponent, static: false }) selectBranch!: SelectBranchComponent;
 
   isFetchingData = false;
   isSavingOrder = false;
@@ -44,8 +44,8 @@ export class AddOrderComponent {
 
   orderForm = new FormGroup({
     orderCode: new FormControl({value: '', disabled: true}),
-    orderDate: new FormControl(),
-    branchName: new FormControl({value: '', disabled: true}, Validators.required),
+    orderDate: new FormControl({value: '', disabled: true}),
+    branchName: new FormControl({value: '', disabled: true}),
   })
 
   ngOnInit(): void {
@@ -53,10 +53,10 @@ export class AddOrderComponent {
   }
 
   openModal(){
-    this.setTomorrowDate();
     this.orderForm.controls.orderDate.setValue(new Date().toISOString().slice(0, 16));
     this.newButton.nativeElement.click();
     this.getLastOrder();
+    this.setTomorrowDate();
   }
 
   setTomorrowDate(){
@@ -91,7 +91,7 @@ export class AddOrderComponent {
   createOrder() {
     this.isSaved = true;
     
-    if(this.orderForm.valid && this.selectedBranchId){
+    if(this.orderForm.valid){
       this.isSavingOrder = true;
 
       let data = this.setCreateOrderData();
@@ -102,7 +102,7 @@ export class AddOrderComponent {
 
           if(res.id){
             sessionStorage.setItem('vendors_order_id', res.id);
-            this.router.navigateByUrl("/modules/orders/orders/view-order");
+            this.router.navigateByUrl("/home/vendors/orders/view-order");
           }
 
           this.dismissButton.nativeElement.click();
@@ -123,7 +123,7 @@ export class AddOrderComponent {
       order_code: this.thisId,
       order_date: this.orderForm.controls.orderDate.value,
       order_status: "Processing",
-      delivery_date: null,
+      delivery_date: this.tomorrow,
       total_price: 0.00,
       vendor: {
         id: this.selectedVendorData.id,
@@ -146,7 +146,16 @@ export class AddOrderComponent {
   }
 
   openBranchWindow(){
+    // console.log("You are opening select branch window")
+    this.selectBranch.openModal();
+  }
 
+  onBranchSelected(data: any){
+    // console.log(data);
+
+    this.orderForm.controls.branchName.setValue(data.data().branch_name);
+    this.selectedBranchId = data.id;
+    this.selectedBranchData = data.data();
   }
 
 }

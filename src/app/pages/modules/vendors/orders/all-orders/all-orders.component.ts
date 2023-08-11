@@ -40,13 +40,13 @@ export class AllOrdersComponent {
   pageSize = 25;
 
   ngOnInit(): void {
-    this.getOrderList();
+    this.getVendorOrderList();
   }
 
-  getOrderList(){
+  getVendorOrderList(){
     this.isFetchingData = true;
 
-    this.vendorsApi.getOrderList()
+    this.vendorsApi.getVendorOrderList()
       .then(
         (res: any) => {
           // console.log(res);

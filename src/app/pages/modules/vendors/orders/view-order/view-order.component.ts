@@ -10,7 +10,7 @@ import { FormatIdService } from 'src/app/services/module-utilities/format-id/for
 
 import { ConnectionToastComponent } from 'src/app/components/module-utilities/connection-toast/connection-toast.component';
 import { DeleteModalOneComponent } from 'src/app/components/module-utilities/delete-modal-one/delete-modal-one.component';
-// import { SelectBranchComponent } from 'src/app/components/select-windows/orders-windows/select-branch/select-branch.component';
+import { SelectBranchComponent } from 'src/app/components/select-windows/select-branch/select-branch.component';
 
 
 @Component({
@@ -29,7 +29,7 @@ export class ViewOrderComponent {
 
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
   @ViewChild('deleteModalOneComponentReference', { read: DeleteModalOneComponent, static: false }) deleteModal!: DeleteModalOneComponent;
-  // @ViewChild('selectBranchComponentReference', { read: SelectBranchComponent, static: false }) selectBranch!: SelectBranchComponent;
+  @ViewChild('selectBranchComponentReference', { read: SelectBranchComponent, static: false }) selectBranch!: SelectBranchComponent;
 
   orderData: any;
   orderTotal = 0.00;
@@ -44,9 +44,11 @@ export class ViewOrderComponent {
   isDeletingOrder = false;
   isSaved = false;
 
+  minDate: any;
+
   orderForm = new FormGroup({
     orderCode: new FormControl({value: '', disabled: true}),
-    orderDate: new FormControl(),
+    orderDate: new FormControl({value: '', disabled: true}),
     branchCode: new FormControl({value: '', disabled: true}),
     branchName: new FormControl({value: '', disabled: true}, Validators.required),
     orderStatus: new FormControl(''),
@@ -57,16 +59,25 @@ export class ViewOrderComponent {
     this.getOrder();
   }
 
+  getMinDate(orderDate: any){
+    const minDate = new Date(orderDate);
+    minDate.setDate(minDate.getDate() + 1);
+    this.minDate = minDate.toISOString().split('T')[0];
+    console.log(this.minDate);
+  }
+
   getOrder() {
     this.isFetchingData = true;
     const id = sessionStorage.getItem('vendors_order_id') as string;
 
     this.vendorsApi.getOrder(id)
       .then((res) => {
-        console.log(res.data());
+        // console.log(res.data());
         this.orderData = res;
         this.isFetchingData = false;
-        this.setOrderData();        
+
+        this.setOrderData();
+        this.getMinDate(this.orderData.data().order_date)
       }),
       (err: any) => {
         // console.log(err);
@@ -118,7 +129,6 @@ export class ViewOrderComponent {
   setOrderData(){
     this.orderForm.controls.orderCode.setValue(this.formatId.formatId(this.orderData.data().order_code, 5, "#", "RD"));
     this.orderForm.controls.orderDate.setValue(this.orderData.data().order_date);
-    this.orderForm.controls.branchCode.setValue(this.formatId.formatId(this.orderData.data().branch.data.branch_code, 4, "#", "VE"));
     this.orderForm.controls.branchName.setValue(this.orderData.data().branch.data.branch_name);
     this.orderForm.controls.orderStatus.setValue(this.orderData.data().order_status);
     this.orderForm.controls.deliveryDate.setValue(this.orderData.data().delivery_date);
@@ -163,16 +173,16 @@ export class ViewOrderComponent {
   }
 
   openBranchWindow(){
-    // // console.log("You are opening select branch window")
-    // this.selectBranch.openModal();
+    // console.log("You are opening select branch window")
+    this.selectBranch.openModal();
   }
 
-  onVendorselected(branchData: any){
-    // console.log(branchData);
-    this.selectedBranchId = branchData.id;
-    this.selectedBranchData = branchData.data();
-    this.orderForm.controls.branchCode.setValue(branchData.data().branch_code);
-    this.orderForm.controls.branchName.setValue(branchData.data().branch_name);
+  onBranchSelected(data: any){
+    // console.log(data);
+
+    this.orderForm.controls.branchName.setValue(data.data().branch_name);
+    this.selectedBranchId = data.id;
+    this.selectedBranchData = data.data();
   }
 
   onPrint(){

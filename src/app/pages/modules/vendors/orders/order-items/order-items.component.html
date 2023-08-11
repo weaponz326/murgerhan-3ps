@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="col-md-8">
+    <div class="col-md-9">
         <div class="card shadow-sm mb-4">
             <div class="card-body">
                 
@@ -13,12 +13,13 @@
                                 <thead>
                                     <tr class="bg-light">
                                         <th width="5%" class="min-width-1">No.</th>
-                                        <th width="30%" class="min-width-3">Product Name</th>
-                                        <th width="15%" class="min-width-2">Unit Price</th>
-                                        <th width="10%" class="min-width-2">Quantity</th>
+                                        <th width="22%" class="min-width-3">Product Name</th>
+                                        <th width="10%" class="min-width-2">Unit Price</th>
+                                        <th width="8%" class="min-width-2">Quantity</th>
                                         <th width="10%" class="min-width-2">Total Price</th>
-                                        <th width="10%" class="min-width-2">VAT</th>
-                                        <th width="10%" class="p-0 min-width-2">
+                                        <th width="7%" class="min-width-2">VAT (%)</th>
+                                        <th width="10%" class="min-width-2">VAT (&pound;)</th>
+                                        <th width="8%" class="p-0 min-width-2">
                                             <button class="btn btn-primary btn-sm w-100" (click)="addOrderItem.openModal(lastItem)">
                                                 <i class="bi bi-plus"></i>
                                             </button>
@@ -32,7 +33,8 @@
                                         <td>{{data?.data().product?.data?.price | currency:'GBP'}}</td>
                                         <td>{{data?.data().quantity}}</td>
                                         <td>{{data?.data().product?.data?.price * data?.data().quantity | currency:'GBP'}}</td>
-                                        <td>{{data?.data().vat}}</td>
+                                        <td>{{data?.data()?.product?.data?.vat}}</td>
+                                        <td>{{(data?.data().product?.data?.price * data?.data().quantity) * (data?.data()?.product?.data?.vat / 100) | currency:'GBP'}}</td>
                                         <td class="p-0">
                                             <button class="btn btn-sm btn-success border w-50" (click)="openEditItem(data)">
                                                 <i class="bi bi-pen"></i>
@@ -43,14 +45,16 @@
                                         </td>
                                     </tr>      
                                     <tr *ngIf="isFetchingData || !isDataAvailable">
-                                        <td colspan="7">
+                                        <td colspan="8">
                                             <app-table-loading [loaderSize]="'sm'" [isLoading]="isFetchingData" [isNoData]="isDataAvailable"></app-table-loading>
                                         </td>
                                     </tr>                          
                                     <tr class="bg-light">
                                         <td colspan="4"></td>
                                         <td class="fw-bold">{{totalPrice | currency:'GBP'}}</td>
-                                        <td colspan="2"></td>
+                                        <td></td>
+                                        <td class="fw-bold">{{totalVat | currency:'GBP'}}</td>
+                                        <td></td>
                                     </tr>
                                 </tbody>
                             </table>

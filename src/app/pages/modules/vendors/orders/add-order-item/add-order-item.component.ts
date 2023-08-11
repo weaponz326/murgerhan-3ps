@@ -5,7 +5,7 @@ import { OrderItem } from 'src/app/models/modules/vendors/vendors.model';
 import { FormatIdService } from 'src/app/services/module-utilities/format-id/format-id.service';
 
 import { OrderItemFormComponent } from '../order-item-form/order-item-form.component';
-// import { SelectProductComponent } from 'src/app/components/select-windows/orders-windows/select-product/select-product.component';
+import { SelectProductComponent } from 'src/app/components/select-windows/select-product/select-product.component';
 
 
 @Component({
@@ -24,7 +24,7 @@ export class AddOrderItemComponent {
   @ViewChild('addButtonElementReference', { read: ElementRef, static: false }) addButton!: ElementRef;
   @ViewChild('dismissButtonElementReference', { read: ElementRef, static: false }) dismissButton!: ElementRef;
   @ViewChild('orderItemFormComponentReference', { read: OrderItemFormComponent, static: false }) orderItemForm!: OrderItemFormComponent;
-  // @ViewChild('selectProductComponentReference', { read: SelectProductComponent, static: false }) selectProduct!: SelectProductComponent;
+  @ViewChild('selectProductComponentReference', { read: SelectProductComponent, static: false }) selectProduct!: SelectProductComponent;
 
   isItemSaving = false;
 
@@ -47,7 +47,7 @@ export class AddOrderItemComponent {
         created_at: serverTimestamp(),
         updated_at: serverTimestamp(),
         item_number: this.orderItemForm.orderItemForm.controls.itemNumber.value as number,
-        order: sessionStorage.getItem('orders_order_id') as string,
+        order: sessionStorage.getItem('vendors_order_id') as string,
         quantity: this.orderItemForm.orderItemForm.controls.quantity.value as number,
         product: {
           id: this.selectedProductId,
@@ -55,6 +55,7 @@ export class AddOrderItemComponent {
             product_code: this.selectedProductData.product_code,
             product_name: this.selectedProductData.product_name,
             price: this.selectedProductData.price,
+            vat: this.selectedProductData.vat,
           }
         },
       }
@@ -74,17 +75,18 @@ export class AddOrderItemComponent {
   }
 
   openProductWindow(){
-    // // console.log("You are opening select product window")
-    // this.selectProduct.openModal();
+    // console.log("You are opening select product window")
+    this.selectProduct.openModal();
   }
 
   onProductSelected(productData: any){
     // console.log(productData);
 
     this.selectedProductData = productData;
-    // this.orderItemForm.orderItemForm.controls.productCode.setValue(this.formatId.formatId(productData.data().product_code, 4, "#", "PR"));
-    // this.orderItemForm.orderItemForm.controls.productName.setValue(productData.data().product_name);
-    // this.orderItemForm.orderItemForm.controls.price.setValue(productData.data().price);
+    this.orderItemForm.orderItemForm.controls.productCode.setValue(this.formatId.formatId(productData.data().product_code, 4, "#", "PR"));
+    this.orderItemForm.orderItemForm.controls.productName.setValue(productData.data().product_name);
+    this.orderItemForm.orderItemForm.controls.price.setValue(productData.data().price);
+    this.orderItemForm.orderItemForm.controls.vat.setValue(productData.data().vat);
 
     this.selectedProductId = productData.id;
     this.selectedProductData = productData.data();

@@ -82,12 +82,11 @@ export class VendorsApiService {
 
   getVendorOrderList(){
     return this.orderRef.ref
-      .where("branch.id", "==", JSON.parse(String(localStorage.getItem("selected_branch"))).id)
-      .where("vendor.id", "==", sessionStorage.getItem('orders_vendor_id'))
+      .where("vendor.id", "==", JSON.parse(String(localStorage.getItem("selected_company"))).id)
       .orderBy("created_at", "desc")
       .get();
   }
-
+  
   // order items
 
   createOrderItem(data: any){

@@ -34,6 +34,7 @@ export class OrderItem {
             product_code: string;
             product_name: string;
             price: number;
+            vat: number;
         }
     };
 }

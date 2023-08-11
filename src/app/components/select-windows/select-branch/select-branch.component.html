@@ -1,1 +1,48 @@
-<p>select-branch works!</p>
+<button [hidden]="true" #openButtonElementReference data-bs-toggle="modal" data-bs-target="#selectBranchModal">
+    Launch demo modal
+</button>
+
+<div class="modal fade select-table-modal" id="selectBranchModal" tabindex="-1" aria-labelledby="selectBranchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+            <div class="modal-header bg-light">
+                <span class="modal-title" id="selectBranchModalLabel">Select Admin Branch</span>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" data-bs-toggle="modal" [attr.data-bs-target]="closeTarget"></button>
+            </div>
+
+            <div class="modal-body overflow-auto">                
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th width="40%" scope="col" class="min-wdith-4">Branch Name</th>
+                            <th width="30%" scope="col" class="min-wdith-3">Location</th>
+                            <th width="30%" scope="col" class="min-wdith-3">Manager</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let data of branchListData" (dblclick)="selectRow(data)">
+                            <td class="py-3">{{data?.data().branch_name}}</td>
+                            <td class="py-3">{{data?.data().location}}</td>
+                            <td class="py-3">{{data?.data().manager.manager}}</td>
+                        </tr>
+                        <tr *ngIf="isFetchingData || !isDataAvailable">
+                            <td colspan="3">
+                                <app-table-loading [loaderSize]="'md'" [isLoading]="isFetchingData" [isNoData]="isDataAvailable"></app-table-loading>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <button [hidden]="true" #closeButtonElementReference data-bs-dismiss="modal" data-bs-toggle="modal" [attr.data-bs-target]="closeTarget">
+                Launch demo modal
+            </button>
+
+        </div>
+    </div>
+</div>
+
+<!-- connection error toast component -->
+
+<app-connection-toast #connectionToastComponentReference></app-connection-toast>

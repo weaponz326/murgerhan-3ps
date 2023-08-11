@@ -1,1 +1,77 @@
-<p>select-product works!</p>
+<button [hidden]="true" #openButtonElementReference data-bs-toggle="modal" data-bs-target="#selectProductModal">
+    Launch demo modal
+</button>
+
+<div class="modal fade select-table-modal" id="selectProductModal" tabindex="-1" aria-labelledby="selectProductModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+            <div class="modal-header bg-light">
+                <span class="modal-title" id="selectProductModalLabel">Select Product</span>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" data-bs-toggle="modal" [attr.data-bs-target]="closeTarget"></button>
+            </div>
+
+            <div class="modal-body overflow-auto">
+
+                <div class="row mb-3">
+                    <div class="col">
+                        <input [(ngModel)]="filterText" (change)="getProductList()" class="form-control form-control-sm w-25 float-end" type="search" placeholder="search products">
+                        <button [disabled]="isFetchingData" (click)="getProductList()" class="btn btn-light btn-sm border float-end page-refresh-btn me-3">
+                            <i class="bi bi-arrow-clockwise"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="overflow-auto">
+                    <table class="table table-sm table-hover table-bordered">
+                        <thead>
+                            <tr>
+                                <th width="25%" scope="col" class="min-width-2">
+                                    <app-table-sorting [fieldTitle]="'Product ID'" [thisColumn]="'product_code'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getProductList()"></app-table-sorting>
+                                </th>
+                                <th width="50%" scope="col" class="min-width-4">
+                                    <app-table-sorting [fieldTitle]="'Product Name'" [thisColumn]="'product_name'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getProductList()"></app-table-sorting>
+                                </th>
+                                <th width="25%" scope="col" class="min-width-3">
+                                    <app-table-sorting [fieldTitle]="'Price'" [thisColumn]="'price'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getProductList()"></app-table-sorting>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody *ngIf="!isFetchingData">
+                            <tr *ngFor="let data of productListData" (dblclick)="selectRow(data)">
+                                <td>{{getFormatId(data?.data().product_code)}}</td>
+                                <td>{{data?.data().product_name}}</td>
+                                <td>{{data?.data().price | currency:'GBP'}}</td>
+                            </tr>
+                        </tbody>
+                        <tbody *ngIf="isFetchingData || !isDataAvailable">
+                            <tr>
+                                <td colspan="3">
+                                    <app-table-loading [loaderSize]="'sm'" [isLoading]="isFetchingData" [isNoData]="isDataAvailable"></app-table-loading>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col">
+
+                        <app-table-paginator [(currentPage)]="currentPage" [pageSize]="pageSize" [totalPages]="totalPages" (pageData)="getProductList()"></app-table-paginator>
+                        
+                    </div>
+                </div>
+                
+            </div>
+
+            <button [hidden]="true" #closeButtonElementReference data-bs-dismiss="modal" data-bs-toggle="modal" [attr.data-bs-target]="closeTarget">
+                Launch demo modal
+            </button>
+
+        </div>
+    </div>
+</div>
+
+<!-- connection error toast component -->
+
+<app-connection-toast #connectionToastComponentReference></app-connection-toast>

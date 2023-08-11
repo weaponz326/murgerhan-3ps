@@ -13,8 +13,8 @@
                     <div class="col">
                         <button class="btn btn-primary btn-sm add-item-btn" (click)="addOrder.openModal()">Add order</button>
                         
-                        <input [(ngModel)]="filterText" (change)="getOrderList()" class="form-control form-control-sm w-25 float-end" type="search" placeholder="search orders">
-                        <button [disabled]="isFetchingData" (click)="getOrderList()" class="btn btn-light btn-sm border float-end page-refresh-btn me-3">
+                        <input [(ngModel)]="filterText" (change)="getVendorOrderList()" class="form-control form-control-sm w-25 float-end" type="search" placeholder="search orders">
+                        <button [disabled]="isFetchingData" (click)="getVendorOrderList()" class="btn btn-light btn-sm border float-end page-refresh-btn me-3">
                             <i class="bi bi-arrow-clockwise"></i>
                         </button>
                     </div>
@@ -28,16 +28,16 @@
                                 <thead>
                                     <tr>
                                         <th width="15%" scope="col" class="min-width-2">
-                                            <app-table-sorting [fieldTitle]="'Order ID'" [thisColumn]="'order_code'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getOrderList()"></app-table-sorting>
+                                            <app-table-sorting [fieldTitle]="'Order ID'" [thisColumn]="'order_code'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getVendorOrderList()"></app-table-sorting>
                                         </th>
                                         <th width="25%" scope="col" class="min-width-3">
-                                            <app-table-sorting [fieldTitle]="'Order Date'" [thisColumn]="'order_date'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getOrderList()"></app-table-sorting>
+                                            <app-table-sorting [fieldTitle]="'Order Date'" [thisColumn]="'order_date'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getVendorOrderList()"></app-table-sorting>
                                         </th>
                                         <th width="40%" scope="col" class="min-width-4">
-                                            <app-table-sorting [fieldTitle]="'Vendor Name'" [thisColumn]="'vendor_name'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getOrderList()"></app-table-sorting>
+                                            <app-table-sorting [fieldTitle]="'Vendor Name'" [thisColumn]="'vendor_name'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getVendorOrderList()"></app-table-sorting>
                                         </th>
                                         <th width="20%" scope="col" class="min-width-3">
-                                            <app-table-sorting [fieldTitle]="'Total Price'" [thisColumn]="'total_price'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getOrderList()"></app-table-sorting>
+                                            <app-table-sorting [fieldTitle]="'Total Price'" [thisColumn]="'total_price'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getVendorOrderList()"></app-table-sorting>
                                         </th>
                                     </tr>
                                 </thead>
@@ -65,7 +65,7 @@
                 <div class="row mb-3">
                     <div class="col">
 
-                        <app-table-paginator [(currentPage)]="currentPage" [pageSize]="pageSize" [totalPages]="totalPages" (pageData)="getOrderList()"></app-table-paginator>
+                        <app-table-paginator [(currentPage)]="currentPage" [pageSize]="pageSize" [totalPages]="totalPages" (pageData)="getVendorOrderList()"></app-table-paginator>
                         
                     </div>
                 </div>

@@ -51,6 +51,7 @@ export class HomePage {
           if (res.uid){
             this.isLoggedIn = true;
             this.email = res.email;
+            this.getThirdPartyRole();
           }
         },
         (err: any) => {

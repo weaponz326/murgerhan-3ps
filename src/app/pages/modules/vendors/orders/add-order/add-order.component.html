@@ -24,7 +24,7 @@
                     <div class="row mb-1">
                         <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Order Date :</label></div>
                         <div class="col-md-8">
-                            <input type="datetime-local" [min]="tomorrow" formControlName="orderDate" class="form-control form-control-sm w-100">
+                            <input type="datetime-local" formControlName="orderDate" class="form-control form-control-sm w-100">
                         </div>
                     </div>
 
@@ -34,7 +34,7 @@
                         </div>
                         <div class="col-md-8">
                             <div class="input-group input-group-sm w-100">
-                                <input formControlName="branchName" class="form-control" [ngClass]="{ 'is-invalid': isSaved && orderForm.controls.branchName.invalid }" required>
+                                <input formControlName="branchName" class="form-control" [ngClass]="{ 'is-invalid': isSaved && orderForm.controls.branchName.invalid }">
                                 <button type="button" class="btn btn-secondary" (click)="openBranchWindow()">
                                     <i class="bi bi-three-dots"></i>
                                 </button>
@@ -54,6 +54,6 @@
     </div>
 </div>
 
-<!-- select branch component -->
+<!-- select branch window component -->
 
-<!-- <app-select-branch #selectBranchComponentReference (rowSelected)="onBranchSelected($event)" [closeTarget]="'#addOrderModal'"></app-select-branch> -->
+<app-select-branch #selectBranchComponentReference (rowSelected)="onBranchSelected($event)" [closeTarget]="'#addOrderModal'"></app-select-branch>

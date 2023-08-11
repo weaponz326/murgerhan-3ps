@@ -37,10 +37,21 @@ export class OrderItemsComponent {
   isItemDeleting = false;
 
   totalPrice: number = 0.00;
+  totalVat: number = 0.00;
   lastItem = 0;
 
   ngOnInit(): void {
     this.getOrderItemList();
+  }
+
+  calculateOrderTotal(){
+    this.calculateTotalPrice();
+    this.calculateTotalVat();
+
+    var orderTotal = this.totalPrice + this.totalVat
+    this.patchTotalAmount(orderTotal);
+    this.setOrderTotal.emit(orderTotal);
+    // console.log(orderTotal);
   }
 
   calculateTotalPrice(){
@@ -49,9 +60,16 @@ export class OrderItemsComponent {
       this.totalPrice += item.data().product.data.price * item.data().quantity;
     }
 
-    this.patchTotalAmount();
-    this.setOrderTotal.emit(this.totalPrice);
     // console.log(this.totalPrice);
+  }
+
+  calculateTotalVat(){
+    this.totalVat = 0;
+    for (let item of this.orderItemListData){
+      this.totalVat += (item.data().product.data.price * item.data().quantity) * (item.data().product.data.vat / 100);
+    }
+
+    // console.log(this.totalVat);
   }
 
   getOrderItemList(){
@@ -63,7 +81,7 @@ export class OrderItemsComponent {
           // console.log(res);
           this.orderItemListData = res.docs;
 
-          this.calculateTotalPrice();
+          this.calculateOrderTotal();
 
           try { this.lastItem = res.docs.length }
           catch{ this.lastItem = 0 }
@@ -135,9 +153,9 @@ export class OrderItemsComponent {
       });
   }
 
-  patchTotalAmount(){
-    const id = sessionStorage.getItem('orders_order_id') as string;
-    let data = { total_price: this.totalPrice }
+  patchTotalAmount(orderTotal: number){
+    const id = sessionStorage.getItem('vendors_order_id') as string;
+    let data = { total_price: orderTotal }
 
     this.vendorsApi.updateOrder(id, data)
       .then((res) => {
