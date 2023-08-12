@@ -42,6 +42,9 @@
     + modules api
         + vendors api (S)
         + suppliers api (S)
+    + modules print
+        + vendors print (S)
+        + suppliers print (S)
 + models
     + auth (Cm)
     + modules

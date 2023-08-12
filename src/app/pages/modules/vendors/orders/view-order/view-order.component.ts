@@ -5,7 +5,7 @@ import { serverTimestamp } from 'firebase/firestore';
 
 import { Order } from 'src/app/models/modules/vendors/vendors.model';
 import { VendorsApiService } from 'src/app/services/modules-api/vendors-api/vendors-api.service';
-// import { OrdersPrintService } from 'src/app/services/modules-print/orders-print/orders-print.service';
+import { VendorsPrintService } from 'src/app/services/modules-print/vendors-print/vendors-print.service';
 import { FormatIdService } from 'src/app/services/module-utilities/format-id/format-id.service';
 
 import { ConnectionToastComponent } from 'src/app/components/module-utilities/connection-toast/connection-toast.component';
@@ -23,7 +23,7 @@ export class ViewOrderComponent {
   constructor(
     private router: Router,
     private vendorsApi: VendorsApiService,
-    // private ordersPrint: OrdersPrintService,
+    private vendorsPrint: VendorsPrintService,
     private formatId: FormatIdService,
   ) {}
 
@@ -187,7 +187,7 @@ export class ViewOrderComponent {
 
   onPrint(){
     // console.log("lets print!.......");
-    // this.ordersPrint.printOrder();
+    this.vendorsPrint.getInvoice();
   }
   
 }

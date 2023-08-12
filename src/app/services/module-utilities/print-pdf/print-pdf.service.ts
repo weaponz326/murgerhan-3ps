@@ -38,5 +38,12 @@ export class PrintPdfService {
     const def = { content: content, pageSize: pageSize };
     pdfMake.createPdf(def).print();
   }
+
+  getPdfFile(content: any) {
+    const def = { content: content };
+    pdfMake.createPdf(def).getBlob((blob: Blob) => {
+      return blob;
+    });
+  }
   
 }
