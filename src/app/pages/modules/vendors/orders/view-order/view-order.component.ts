@@ -147,7 +147,7 @@ export class ViewOrderComponent {
       order_date: this.orderForm.controls.orderDate.value,
       order_status: this.orderForm.controls.orderStatus.value as string,
       delivery_date: this.orderForm.controls.deliveryDate.value,
-      total_price: 0.00,
+      order_total: this.orderTotal,
       vendor: {
         id: this.selectedVendorData.id,
         data: {

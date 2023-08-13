@@ -155,7 +155,7 @@ export class OrderItemsComponent {
 
   patchTotalAmount(orderTotal: number){
     const id = sessionStorage.getItem('vendors_order_id') as string;
-    let data = { total_price: orderTotal }
+    let data = { order_total: orderTotal }
 
     this.vendorsApi.updateOrder(id, data)
       .then((res) => {

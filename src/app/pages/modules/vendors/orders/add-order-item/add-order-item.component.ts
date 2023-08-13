@@ -34,6 +34,7 @@ export class AddOrderItemComponent {
   openModal(lastId: any){
     this.orderItemForm.orderItemForm.controls.itemNumber.setValue(lastId + 1);
     this.orderItemForm.orderItemForm.controls.price.setValue(0.00);
+    this.orderItemForm.orderItemForm.controls.vat.setValue(0.00);
     this.orderItemForm.orderItemForm.controls.quantity.setValue(1);
 
     this.addButton.nativeElement.click();
@@ -69,6 +70,7 @@ export class AddOrderItemComponent {
     this.orderItemForm.orderItemForm.controls.productCode.setValue('');
     this.orderItemForm.orderItemForm.controls.productName.setValue('');
     this.orderItemForm.orderItemForm.controls.price.setValue(0.00);
+    this.orderItemForm.orderItemForm.controls.vat.setValue(0.00);
     this.orderItemForm.orderItemForm.controls.quantity.setValue(1);
     this.selectedProductId = null;
     this.selectedProductData = null;

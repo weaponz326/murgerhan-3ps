@@ -78,6 +78,7 @@ export class EditOrderItemComponent {
     this.orderItemForm.orderItemForm.controls.productCode.setValue(this.formatId.formatId(data.data().product?.data.product_code, 4, "#", "PR"));
     this.orderItemForm.orderItemForm.controls.productName.setValue(data.data().product?.data.product_name);
     this.orderItemForm.orderItemForm.controls.price.setValue(data.data().product.data.price);
+    this.orderItemForm.orderItemForm.controls.vat.setValue(data.data().product.data.vat);
     this.orderItemForm.orderItemForm.controls.quantity.setValue(data.data().quantity);
 
     this.selectedProductId = data.data().product.id;

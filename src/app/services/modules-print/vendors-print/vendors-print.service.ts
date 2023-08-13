@@ -45,6 +45,8 @@ export class VendorsPrintService {
       orderItemListBody.push(row);
     }
 
+    orderItemListBody.push(['', '', '', '', '', this.calculateTotalPrice(orderItemListData.docs), '', this.calculateTotalVat(orderItemListData.docs)])
+
     let content = [
       {
         columns: [
@@ -81,6 +83,24 @@ export class VendorsPrintService {
 
   dateFormat(date: any){
     return formatDate(new Date(date), 'yyyy-MM-dd', 'en-US');
+  }
+
+  calculateTotalPrice(itemsData: any){
+    var totalPrice = 0;
+    for (let item of itemsData){
+      totalPrice += item.data().product.data.price * item.data().quantity;
+    }
+
+    return String(totalPrice);
+  }
+
+  calculateTotalVat(itemsData: any){
+    var totalVat = 0;
+    for (let item of itemsData){
+      totalVat += (item.data().product.data.price * item.data().quantity) * (item.data().product.data.vat / 100);
+    }
+
+    return String(totalVat);
   }
 
 }

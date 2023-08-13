@@ -5,7 +5,7 @@ export class Order {
     order_date!: any;
     order_status!: string;
     delivery_date!: any;
-    total_price!: number;
+    order_total!: number;
     vendor!: {
         id: string;
         data: {
