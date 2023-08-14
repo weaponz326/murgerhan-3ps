@@ -30,7 +30,7 @@ export class VendorsPrintService {
       ['Delivery Date', ':', orderData.data().delivery_date],
     ]
 
-    var orderItemListBody = [['No.', 'Product Name', 'Unit Price', 'Quantity', 'Total Price', 'VAT (%)', 'VAT (&pound;)']];
+    var orderItemListBody = [['No.', 'Product Name', 'Unit Price', 'Quantity', 'Total Price', 'VAT (%)', 'VAT (\u00A3)']];
 
     for (let data of orderItemListData.docs){
       var row = [];
@@ -45,7 +45,7 @@ export class VendorsPrintService {
       orderItemListBody.push(row);
     }
 
-    orderItemListBody.push(['', '', '', '', '', this.calculateTotalPrice(orderItemListData.docs), '', this.calculateTotalVat(orderItemListData.docs)])
+    orderItemListBody.push(['', '', '', '', this.calculateTotalPrice(orderItemListData.docs), '', this.calculateTotalVat(orderItemListData.docs)])
 
     let content = [
       {
@@ -71,7 +71,7 @@ export class VendorsPrintService {
         layout: 'lightHorizontalLines',
         table: {
           headerRows: 1,
-          widths: ['7%', '25%', '10%', '10%', '10%', '7%', '10%'],
+          widths: ['6%', '25%', '10%', '12%', '10%', '6%', '10%'],
           body: orderItemListBody
         }
       }

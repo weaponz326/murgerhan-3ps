@@ -66,9 +66,37 @@ export class LoginFormComponent {
 
     this.usersApi.getThirdPartyRole(id)
       .then((res) => {
-        // console.log(res);
+        // console.log(res.data());
         this.roleData = res;
         this.isSending = false;
+
+        try{
+          let data = {
+            id: this.roleData.id,
+            data: {
+              user_code: this.roleData.data().user_code,
+              full_name: this.roleData.data().full_name,
+              company_type: this.roleData.data().company_type,
+              company: {
+                id: this.roleData.data().company.id,
+                data: {
+                  company_code: this.roleData.data().company.data.company_code,
+                  company_name: this.roleData.data().company.data.company_name,
+                  phone: this.roleData.data().company.data.phone,
+                  email: this.roleData.data().company.data.email,
+                }
+              }
+            }
+          }
+
+          // console.log(data);
+          
+          localStorage.setItem("selected_third_party_role", JSON.stringify(data));          
+          localStorage.setItem("selected_company", JSON.stringify(data.data.company));
+        }
+        catch{
+          // console.log("probably not logged in!");
+        }
 
         if(this.roleData.data().company_type == "Vendor"){
           this.router.navigateByUrl('/home/vendors/orders');
