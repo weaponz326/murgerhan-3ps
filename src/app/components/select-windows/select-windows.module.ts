@@ -9,6 +9,7 @@ import { SelectProductComponent } from './select-product/select-product.componen
 import { SelectPurchasingComponent } from './select-purchasing/select-purchasing.component';
 import { SelectBranchComponent } from './select-branch/select-branch.component';
 import { SelectStockItemComponent } from './select-stock-item/select-stock-item.component';
+import { SelectFactoryItemComponent } from './select-factory-item/select-factory-item.component';
 
 
 
@@ -18,7 +19,8 @@ import { SelectStockItemComponent } from './select-stock-item/select-stock-item.
     SelectProductComponent,
     SelectPurchasingComponent,
     SelectBranchComponent,
-    SelectStockItemComponent
+    SelectStockItemComponent,
+    SelectFactoryItemComponent
   ],
   imports: [
     CommonModule,
@@ -30,7 +32,8 @@ import { SelectStockItemComponent } from './select-stock-item/select-stock-item.
     SelectProductComponent,
     SelectPurchasingComponent,
     SelectBranchComponent,
-    SelectStockItemComponent
+    SelectStockItemComponent,
+    SelectFactoryItemComponent
   ],
 })
 export class SelectWindowsModule { }

@@ -70,10 +70,10 @@
 
 <!-- add and edit item modal components -->
 
-<app-add-order-item #addOrderItemComponentReference (saveItemEvent)="createOrderItem($event)"></app-add-order-item>
+<app-add-order-item #addOrderItemComponentReference (saveItemEvent)="createVendorOrderItem($event)"></app-add-order-item>
 
-<app-edit-order-item #editOrderItemComponentReference (saveItemEvent)="updateOrderItem($event)"></app-edit-order-item>
+<app-edit-order-item #editOrderItemComponentReference (saveItemEvent)="updateVendorOrderItem($event)"></app-edit-order-item>
 
 <!-- delete confirmation modal component -->
 
-<app-delete-modal-two #deleteModalTwoComponentReference (confirmEvent)="deleteOrderItem()"></app-delete-modal-two>
+<app-delete-modal-two #deleteModalTwoComponentReference (confirmEvent)="deleteVendorOrderItem()"></app-delete-modal-two>

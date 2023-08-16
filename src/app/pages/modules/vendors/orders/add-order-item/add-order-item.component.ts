@@ -5,7 +5,7 @@ import { OrderItem } from 'src/app/models/modules/vendors/vendors.model';
 import { FormatIdService } from 'src/app/services/module-utilities/format-id/format-id.service';
 
 import { OrderItemFormComponent } from '../order-item-form/order-item-form.component';
-import { SelectProductComponent } from 'src/app/components/select-windows/select-product/select-product.component';
+import { SelectFactoryItemComponent } from 'src/app/components/select-windows/select-factory-item/select-factory-item.component';
 
 
 @Component({
@@ -24,12 +24,12 @@ export class AddOrderItemComponent {
   @ViewChild('addButtonElementReference', { read: ElementRef, static: false }) addButton!: ElementRef;
   @ViewChild('dismissButtonElementReference', { read: ElementRef, static: false }) dismissButton!: ElementRef;
   @ViewChild('orderItemFormComponentReference', { read: OrderItemFormComponent, static: false }) orderItemForm!: OrderItemFormComponent;
-  @ViewChild('selectProductComponentReference', { read: SelectProductComponent, static: false }) selectProduct!: SelectProductComponent;
+  @ViewChild('selectFactoryItemComponentReference', { read: SelectFactoryItemComponent, static: false }) selectItem!: SelectFactoryItemComponent;
 
   isItemSaving = false;
 
-  selectedProductId: any;
-  selectedProductData: any;
+  selecteditemId: any;
+  selecteditemData: any;
 
   openModal(lastId: any){
     this.orderItemForm.orderItemForm.controls.itemNumber.setValue(lastId + 1);
@@ -43,20 +43,20 @@ export class AddOrderItemComponent {
   saveItem(){
     this.orderItemForm.isSaved = true;    
 
-    if(this.orderItemForm.orderItemForm.valid && this.selectedProductId){
+    if(this.orderItemForm.orderItemForm.valid && this.selecteditemId){
       let data: OrderItem = {
         created_at: serverTimestamp(),
         updated_at: serverTimestamp(),
         item_number: this.orderItemForm.orderItemForm.controls.itemNumber.value as number,
         order: sessionStorage.getItem('vendors_order_id') as string,
         quantity: this.orderItemForm.orderItemForm.controls.quantity.value as number,
-        product: {
-          id: this.selectedProductId,
+        factory_item: {
+          id: this.selecteditemId,
           data: {
-            product_code: this.selectedProductData.product_code,
-            product_name: this.selectedProductData.product_name,
-            price: this.selectedProductData.price,
-            vat: this.selectedProductData.vat,
+            item_code: this.selecteditemData.item_code,
+            item_name: this.selecteditemData.item_name,
+            price: this.selecteditemData.price,
+            vat: this.selecteditemData.vat,
           }
         },
       }
@@ -67,31 +67,31 @@ export class AddOrderItemComponent {
 
   resetForm(){
     this.orderItemForm.orderItemForm.controls.itemNumber.setValue(null);
-    this.orderItemForm.orderItemForm.controls.productCode.setValue('');
-    this.orderItemForm.orderItemForm.controls.productName.setValue('');
+    this.orderItemForm.orderItemForm.controls.itemCode.setValue('');
+    this.orderItemForm.orderItemForm.controls.itemName.setValue('');
     this.orderItemForm.orderItemForm.controls.price.setValue(0.00);
     this.orderItemForm.orderItemForm.controls.vat.setValue(0.00);
     this.orderItemForm.orderItemForm.controls.quantity.setValue(1);
-    this.selectedProductId = null;
-    this.selectedProductData = null;
+    this.selecteditemId = null;
+    this.selecteditemData = null;
   }
 
-  openProductWindow(){
-    // console.log("You are opening select product window")
-    this.selectProduct.openModal();
+  openItemWindow(){
+    // console.log("You are opening select item window")
+    this.selectItem.openModal();
   }
 
-  onProductSelected(productData: any){
-    // console.log(productData);
+  onItemSelected(itemData: any){
+    // console.log(itemData);
 
-    this.selectedProductData = productData;
-    this.orderItemForm.orderItemForm.controls.productCode.setValue(this.formatId.formatId(productData.data().product_code, 4, "#", "PR"));
-    this.orderItemForm.orderItemForm.controls.productName.setValue(productData.data().product_name);
-    this.orderItemForm.orderItemForm.controls.price.setValue(productData.data().price);
-    this.orderItemForm.orderItemForm.controls.vat.setValue(productData.data().vat);
+    this.selecteditemData = itemData;
+    this.orderItemForm.orderItemForm.controls.itemCode.setValue(this.formatId.formatId(itemData.data().item_code, 4, "#", "FI"));
+    this.orderItemForm.orderItemForm.controls.itemName.setValue(itemData.data().item_name);
+    this.orderItemForm.orderItemForm.controls.price.setValue(itemData.data().price);
+    this.orderItemForm.orderItemForm.controls.vat.setValue(itemData.data().vat);
 
-    this.selectedProductId = productData.id;
-    this.selectedProductData = productData.data();
+    this.selecteditemId = itemData.id;
+    this.selecteditemData = itemData.data();
   }
   
 }

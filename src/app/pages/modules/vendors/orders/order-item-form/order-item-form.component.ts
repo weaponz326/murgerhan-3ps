@@ -9,14 +9,14 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class OrderItemFormComponent {
 
-  @Output() openProductWindow = new EventEmitter<any>();
+  @Output() openItemWindow = new EventEmitter<any>();
   
   isSaved = false;
   
   orderItemForm = new FormGroup({
     itemNumber: new FormControl(),
-    productCode: new FormControl({value: '', disabled: true}),
-    productName: new FormControl({value: '', disabled: true}, Validators.required),
+    itemCode: new FormControl({value: '', disabled: true}),
+    itemName: new FormControl({value: '', disabled: true}, Validators.required),
     price: new FormControl({value: 0.00, disabled: true}),
     vat: new FormControl({value: 0.00, disabled: true}),
     quantity: new FormControl(1),

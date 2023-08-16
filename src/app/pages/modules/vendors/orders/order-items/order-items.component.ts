@@ -2,6 +2,7 @@ import { Component, EventEmitter, Output, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { VendorsApiService } from 'src/app/services/modules-api/vendors-api/vendors-api.service';
+import { FactoryApiService } from 'src/app/services/modules-api/factory-api/factory-api.service';
 import { ConnectionToastComponent } from 'src/app/components/module-utilities/connection-toast/connection-toast.component';
 
 import { DeleteModalTwoComponent } from 'src/app/components/module-utilities/delete-modal-two/delete-modal-two.component';
@@ -19,6 +20,7 @@ export class OrderItemsComponent {
   constructor(
     private router: Router,
     private vendorsApi: VendorsApiService,
+    private factoryApi: FactoryApiService,
   ) { }
 
   @Output() setOrderTotal = new EventEmitter<any>();
@@ -41,7 +43,7 @@ export class OrderItemsComponent {
   lastItem = 0;
 
   ngOnInit(): void {
-    this.getOrderItemList();
+    this.getVendorOrderItemList();
   }
 
   calculateOrderTotal(){
@@ -72,10 +74,10 @@ export class OrderItemsComponent {
     // console.log(this.totalVat);
   }
 
-  getOrderItemList(){
+  getVendorOrderItemList(){
     this.isFetchingData = true;
 
-    this.vendorsApi.getOrderItemList()
+    this.factoryApi.getVendorOrderItemList()
       .then(
         (res: any) => {
           // console.log(res);
@@ -96,17 +98,17 @@ export class OrderItemsComponent {
       )
   }
 
-  createOrderItem(data: any) {
+  createVendorOrderItem(data: any) {
     // console.log(data);
 
     this.addOrderItem.isItemSaving = true;
 
-    this.vendorsApi.createOrderItem(data)
+    this.factoryApi.createVendorOrderItem(data)
       .then((res: any) => {
         // console.log(res);
 
         if(res.id){
-          this.getOrderItemList();
+          this.getVendorOrderItemList();
 
           this.addOrderItem.isItemSaving = false;
           this.addOrderItem.dismissButton.nativeElement.click();
@@ -120,15 +122,15 @@ export class OrderItemsComponent {
       });
   }
 
-  updateOrderItem(order_item: any) {
+  updateVendorOrderItem(order_item: any) {
     this.editOrderItem.isItemSaving = true;
     
-    this.vendorsApi.updateOrderItem(order_item.id, order_item.data)
+    this.factoryApi.updateVendorOrderItem(order_item.id, order_item.data)
       .then((res) => {
         // console.log(res);
         this.editOrderItem.isItemSaving = false;
         this.editOrderItem.dismissButton.nativeElement.click();
-        this.getOrderItemList();
+        this.getVendorOrderItemList();
       })
       .catch((err) => {
         // console.log(err);
@@ -137,14 +139,14 @@ export class OrderItemsComponent {
       });
   }
 
-  deleteOrderItem() {
+  deleteVendorOrderItem() {
     this.isItemDeleting = true;
 
-    this.vendorsApi.deleteOrderItem(this.deleteId)
+    this.factoryApi.deleteVendorOrderItem(this.deleteId)
       .then((res) => {
         // console.log(res);
         this.isItemDeleting = false;
-        this.getOrderItemList();
+        this.getVendorOrderItemList();
       })
       .catch((err) => {
         // console.log(err);
@@ -157,7 +159,7 @@ export class OrderItemsComponent {
     const id = sessionStorage.getItem('vendors_order_id') as string;
     let data = { order_total: orderTotal }
 
-    this.vendorsApi.updateOrder(id, data)
+    this.factoryApi.updateVendorOrder(id, data)
       .then((res) => {
         // console.log(res);
       })

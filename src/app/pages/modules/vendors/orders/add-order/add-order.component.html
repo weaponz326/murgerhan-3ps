@@ -28,7 +28,7 @@
                         </div>
                     </div>
 
-                    <div class="row mb-1">
+                    <!-- <div class="row mb-1">
                         <div class="col-md-4">
                             <label class="float-md-end float-sm-start mt-1"><span class="text-danger me-1">*</span>Branch Name :</label>
                         </div>
@@ -40,11 +40,11 @@
                                 </button>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
                 
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-sm btn-success form-control-btn" [disabled]="isSavingOrder || isFetchingData" (click)="createOrder()">Save</button>
+                    <button type="submit" class="btn btn-sm btn-success form-control-btn" [disabled]="isSavingOrder || isFetchingData" (click)="createVendorOrder()">Save</button>
                     <button type="button" class="btn btn-sm btn-warning form-control-btn" data-bs-dismiss="modal">Cancel</button>
                 </div>
 
@@ -56,4 +56,4 @@
 
 <!-- select branch window component -->
 
-<app-select-branch #selectBranchComponentReference (rowSelected)="onBranchSelected($event)" [closeTarget]="'#addOrderModal'"></app-select-branch>
+<!-- <app-select-branch #selectBranchComponentReference (rowSelected)="onBranchSelected($event)" [closeTarget]="'#addOrderModal'"></app-select-branch> -->

@@ -3,7 +3,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { serverTimestamp } from 'firebase/firestore';
 
-import { Order } from 'src/app/models/modules/vendors/vendors.model';
+import { FactoryOrder } from 'src/app/models/modules/vendors/vendors.model';
+import { FactoryApiService } from 'src/app/services/modules-api/factory-api/factory-api.service';
 import { VendorsApiService } from 'src/app/services/modules-api/vendors-api/vendors-api.service';
 import { VendorsPrintService } from 'src/app/services/modules-print/vendors-print/vendors-print.service';
 import { FormatIdService } from 'src/app/services/module-utilities/format-id/format-id.service';
@@ -23,6 +24,7 @@ export class ViewOrderComponent {
   constructor(
     private router: Router,
     private vendorsApi: VendorsApiService,
+    private factoryApi: FactoryApiService,
     private vendorsPrint: VendorsPrintService,
     private formatId: FormatIdService,
   ) {}
@@ -49,14 +51,12 @@ export class ViewOrderComponent {
   orderForm = new FormGroup({
     orderCode: new FormControl({value: '', disabled: true}),
     orderDate: new FormControl({value: '', disabled: true}),
-    branchCode: new FormControl({value: '', disabled: true}),
-    branchName: new FormControl({value: '', disabled: true}, Validators.required),
     orderStatus: new FormControl(''),
     deliveryDate: new FormControl(),
   })
 
   ngOnInit(): void {
-    this.getOrder();
+    this.getVendorOrder();
   }
 
   getMinDate(orderDate: any){
@@ -66,11 +66,11 @@ export class ViewOrderComponent {
     console.log(this.minDate);
   }
 
-  getOrder() {
+  getVendorOrder() {
     this.isFetchingData = true;
     const id = sessionStorage.getItem('vendors_order_id') as string;
 
-    this.vendorsApi.getOrder(id)
+    this.factoryApi.getVendorOrder(id)
       .then((res) => {
         // console.log(res.data());
         this.orderData = res;
@@ -86,16 +86,16 @@ export class ViewOrderComponent {
       };
   }
 
-  updateOrder() {       
+  updateVendorOrder() {       
     this.isSaved = true;
      
     if(this.orderForm.valid && this.selectedBranchId){
       this.isSavingOrder = true;
 
       const id = sessionStorage.getItem('vendors_order_id') as string;
-      let data = this.setUpdateOrderData();
+      let data = this.setUpdateVendorOrderData();
 
-      this.vendorsApi.updateOrder(id, data)
+      this.factoryApi.updateVendorOrder(id, data)
         .then((res) => {
           // console.log(res);
           this.isSavingOrder = false;
@@ -108,12 +108,12 @@ export class ViewOrderComponent {
     }
   }
 
-  deleteOrder() {
+  deleteVendorOrder() {
     this.isDeletingOrder = true;
 
     const id = sessionStorage.getItem('vendors_order_id') as string;
 
-    this.vendorsApi.deleteOrder(id)
+    this.factoryApi.deleteVendorOrder(id)
       .then((res) => {
         // console.log(res);
         this.router.navigateByUrl('modules/orders/orderes/all-orders')
@@ -129,7 +129,6 @@ export class ViewOrderComponent {
   setOrderData(){
     this.orderForm.controls.orderCode.setValue(this.formatId.formatId(this.orderData.data().order_code, 5, "#", "RD"));
     this.orderForm.controls.orderDate.setValue(this.orderData.data().order_date);
-    this.orderForm.controls.branchName.setValue(this.orderData.data().branch.data.branch_name);
     this.orderForm.controls.orderStatus.setValue(this.orderData.data().order_status);
     this.orderForm.controls.deliveryDate.setValue(this.orderData.data().delivery_date);
 
@@ -139,8 +138,8 @@ export class ViewOrderComponent {
     this.selectedBranchData = this.orderData.data().branch.data;
   }
 
-  setUpdateOrderData(){
-    let data: Order = {
+  setUpdateVendorOrderData(){
+    let data: FactoryOrder = {
       created_at: this.orderData.data().created_at,
       updated_at: serverTimestamp(),
       order_code: this.orderData.data().order_code,
@@ -155,13 +154,6 @@ export class ViewOrderComponent {
           vendor_name: this.selectedVendorData.data.company_name
         }
       },
-      branch: {
-        id: this.selectedBranchId,
-        data: {
-          branch_name: this.selectedBranchData.branch_name,
-          location: this.selectedBranchData.location
-        }
-      },
     }
 
     // console.log(data);
@@ -172,18 +164,18 @@ export class ViewOrderComponent {
     this.deleteModal.openModal();
   }
 
-  openBranchWindow(){
-    // console.log("You are opening select branch window")
-    this.selectBranch.openModal();
-  }
+  // openBranchWindow(){
+  //   // console.log("You are opening select branch window")
+  //   this.selectBranch.openModal();
+  // }
 
-  onBranchSelected(data: any){
-    // console.log(data);
+  // onBranchSelected(data: any){
+  //   // console.log(data);
 
-    this.orderForm.controls.branchName.setValue(data.data().branch_name);
-    this.selectedBranchId = data.id;
-    this.selectedBranchData = data.data();
-  }
+  //   this.orderForm.controls.branchName.setValue(data.data().branch_name);
+  //   this.selectedBranchId = data.id;
+  //   this.selectedBranchData = data.data();
+  // }
 
   onPrint(){
     // console.log("lets print!.......");

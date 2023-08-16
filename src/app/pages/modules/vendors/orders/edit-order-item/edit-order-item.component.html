@@ -15,7 +15,7 @@
 
                 <!-- item form component -->
 
-                <app-order-item-form #orderItemFormComponentReference (openProductWindow)="openProductWindow()"></app-order-item-form>
+                <app-order-item-form #orderItemFormComponentReference (openItemWindow)="openItemWindow()"></app-order-item-form>
 
             </div>
 
@@ -28,8 +28,8 @@
     </div>
 </div>
 
-<!-- select product window -->
+<!-- select item window -->
 
-<app-select-product #selectProductComponentReference (rowSelected)="onProductSelected($event)" [closeTarget]="'#editItemModal'"></app-select-product>
+<app-select-factory-item #selectFactoryItemComponentReference (rowSelected)="onItemSelected($event)" [closeTarget]="'#editItemModal'"></app-select-factory-item>
 
 

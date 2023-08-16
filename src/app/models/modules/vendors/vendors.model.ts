@@ -1,4 +1,4 @@
-export class Order {
+export class FactoryOrder {
     created_at!: any;
     updated_at!: any;
     order_code!: number;
@@ -13,13 +13,6 @@ export class Order {
             vendor_name: string;
         }
     };
-    branch!: {
-        id: string;
-        data: {
-            branch_name: string;
-            location: string;
-        }
-    };
 }
 
 export class OrderItem {
@@ -28,11 +21,11 @@ export class OrderItem {
     item_number!: number;
     quantity!: number;
     order!: string;
-    product!: {
+    factory_item!: {
         id: string;
         data: {
-            product_code: string;
-            product_name: string;
+            item_code: string;
+            item_name: string;
             price: number;
             vat: number;
         }
