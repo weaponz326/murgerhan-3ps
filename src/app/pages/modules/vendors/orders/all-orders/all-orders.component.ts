@@ -1,7 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { VendorsApiService } from 'src/app/services/modules-api/vendors-api/vendors-api.service';
+import { FactoryApiService } from 'src/app/services/modules-api/factory-api/factory-api.service';
 import { AggregateTableService } from 'src/app/services/module-utilities/aggregate-table/aggregate-table.service';
 import { FormatIdService } from 'src/app/services/module-utilities/format-id/format-id.service';
 
@@ -18,7 +18,7 @@ export class AllOrdersComponent {
 
   constructor(
     private router: Router,
-    private vendorsApi: VendorsApiService,
+    private factoryApi: FactoryApiService,
     private aggregateTable: AggregateTableService,
     private formatId: FormatIdService,
   ) { }
@@ -46,7 +46,7 @@ export class AllOrdersComponent {
   getVendorOrderList(){
     this.isFetchingData = true;
 
-    this.vendorsApi.getVendorOrderList()
+    this.factoryApi.getVendorOrderList()
       .then(
         (res: any) => {
           // console.log(res);
@@ -62,7 +62,7 @@ export class AllOrdersComponent {
           this.aggregateData();
         },
         (err: any) => {
-          // console.log(err);
+          console.log(err);
           this.connectionToast.openToast();
           this.isFetchingData = false;
         }

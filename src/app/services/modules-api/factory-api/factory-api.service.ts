@@ -98,7 +98,7 @@ export class FactoryApiService {
 
   getVendorOrderItemList(){
     return this.factoryVendorOrderItemRef.ref
-      .where("order.id", "==", sessionStorage.getItem('vendors_order_id'))
+      .where("order", "==", sessionStorage.getItem('vendors_order_id'))
       .orderBy("created_at", "asc")
       .get();
   }

@@ -92,7 +92,7 @@ export class AddOrderComponent {
   createVendorOrder() {
     this.isSaved = true;
     
-    if(this.orderForm.valid){
+    // if(this.orderForm.valid){
       this.isSavingOrder = true;
 
       let data = this.setCreateVendorOrderData();
@@ -114,7 +114,7 @@ export class AddOrderComponent {
           this.connectionToast.openToast();
           this.isSavingOrder = false;
         });
-    }
+    // }
   }
 
   setCreateVendorOrderData(){

@@ -59,7 +59,7 @@ export class OrderItemsComponent {
   calculateTotalPrice(){
     this.totalPrice = 0;
     for (let item of this.orderItemListData){
-      this.totalPrice += item.data().product.data.price * item.data().quantity;
+      this.totalPrice += item.data().factory_item.data.price * item.data().quantity;
     }
 
     // console.log(this.totalPrice);
@@ -68,7 +68,7 @@ export class OrderItemsComponent {
   calculateTotalVat(){
     this.totalVat = 0;
     for (let item of this.orderItemListData){
-      this.totalVat += (item.data().product.data.price * item.data().quantity) * (item.data().product.data.vat / 100);
+      this.totalVat += (item.data().factory_item.data.price * item.data().quantity) * (item.data().factory_item.data.vat / 100);
     }
 
     // console.log(this.totalVat);

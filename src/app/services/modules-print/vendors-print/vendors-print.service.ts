@@ -3,7 +3,7 @@ import { formatDate } from '@angular/common';
 
 import { PrintPdfService } from '../../module-utilities/print-pdf/print-pdf.service';
 import { FormatIdService } from '../../module-utilities/format-id/format-id.service';
-import { VendorsApiService } from '../../modules-api/vendors-api/vendors-api.service';
+import { FactoryApiService } from '../../modules-api/factory-api/factory-api.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,35 +13,34 @@ export class VendorsPrintService {
   constructor(
     private printPdf: PrintPdfService,
     private formatId: FormatIdService,
-    private vendorsApi: VendorsApiService
+    private factoryApi: FactoryApiService
   ) { }
   
   async getInvoice(){
-    const orderData: any = await this.vendorsApi.getOrder(sessionStorage.getItem('vendors_order_id'));
-    const orderItemListData: any = await this.vendorsApi.getOrderItemList();
+    const orderData: any = await this.factoryApi.getVendorOrder(sessionStorage.getItem('vendors_order_id'));
+    const orderItemListData: any = await this.factoryApi.getVendorOrderItemList();
     
     var orderBody = [
       ['Order ID', ':', this.formatId.formatId(orderData.data().order_code, 5, "#", "RD")],
       ['Order Date', ':', orderData.data().order_date],
       ['Vendor ID', ':', this.formatId.formatId(orderData.data().vendor.data.vendor_code, 4, "#", "VE")],
       ['Vendor Name', ':', orderData.data().vendor.data.vendor_name],
-      ['Branch', ':', orderData.data().branch.data.branch_name],
       ['Order Status', ':', orderData.data().order_status],
       ['Delivery Date', ':', orderData.data().delivery_date],
     ]
 
-    var orderItemListBody = [['No.', 'Product Name', 'Unit Price', 'Quantity', 'Total Price', 'VAT (%)', 'VAT (\u00A3)']];
+    var orderItemListBody = [['No.', 'Item Name', 'Unit Price', 'Quantity', 'Total Price', 'VAT (%)', 'VAT (\u00A3)']];
 
     for (let data of orderItemListData.docs){
       var row = [];
       let rowData: any = data.data();
       row.push(rowData.item_number);
-      row.push(rowData.product.data.product_name);
-      row.push(rowData.product.data.price);
+      row.push(rowData.factory_item.data.item_name);
+      row.push(rowData.factory_item.data.price);
       row.push(rowData.quantity);      
-      row.push(rowData.product.data.price * rowData.quantity);
-      row.push(rowData.product.data.vat);
-      row.push(rowData.product?.data?.price * rowData.quantity) * (rowData.product?.data?.vat / 100);
+      row.push(rowData.factory_item.data.price * rowData.quantity);
+      row.push(rowData.factory_item.data.vat);
+      row.push(rowData.factory_item?.data?.price * rowData.quantity) * (rowData.factory_item?.data?.vat / 100);
       orderItemListBody.push(row);
     }
 
@@ -62,11 +61,11 @@ export class VendorsPrintService {
           ],
           [
             { text: 'OrderTotal', alignment: 'center' },
-            { text: '$' + orderData.data().total_price, bold: true, alignment: 'center', margin: [0, 20] }
+            { text: '$' + orderData.data().order_total, bold: true, alignment: 'center', margin: [0, 20] }
           ]
         ]
       },
-      { text: 'Order Products', bold: true, margin: [0, 30, 0, 10] },
+      { text: 'Order Items', bold: true, margin: [0, 30, 0, 10] },
       {
         layout: 'lightHorizontalLines',
         table: {
@@ -88,7 +87,7 @@ export class VendorsPrintService {
   calculateTotalPrice(itemsData: any){
     var totalPrice = 0;
     for (let item of itemsData){
-      totalPrice += item.data().product.data.price * item.data().quantity;
+      totalPrice += item.data().factory_item.data.price * item.data().quantity;
     }
 
     return String(totalPrice);
@@ -97,7 +96,7 @@ export class VendorsPrintService {
   calculateTotalVat(itemsData: any){
     var totalVat = 0;
     for (let item of itemsData){
-      totalVat += (item.data().product.data.price * item.data().quantity) * (item.data().product.data.vat / 100);
+      totalVat += (item.data().factory_item.data.price * item.data().quantity) * (item.data().factory_item.data.vat / 100);
     }
 
     return String(totalVat);

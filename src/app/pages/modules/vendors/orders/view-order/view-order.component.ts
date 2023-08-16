@@ -63,7 +63,7 @@ export class ViewOrderComponent {
     const minDate = new Date(orderDate);
     minDate.setDate(minDate.getDate() + 1);
     this.minDate = minDate.toISOString().split('T')[0];
-    console.log(this.minDate);
+    // console.log(this.minDate);
   }
 
   getVendorOrder() {
@@ -134,8 +134,8 @@ export class ViewOrderComponent {
 
     this.orderTotal = this.orderData.data().total_price;
 
-    this.selectedBranchId = this.orderData.data().branch.id;
-    this.selectedBranchData = this.orderData.data().branch.data;
+    // this.selectedBranchId = this.orderData.data().branch.id;
+    // this.selectedBranchData = this.orderData.data().branch.data;
   }
 
   setUpdateVendorOrderData(){

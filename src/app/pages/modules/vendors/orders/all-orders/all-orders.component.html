@@ -37,7 +37,7 @@
                                             <app-table-sorting [fieldTitle]="'Vendor Name'" [thisColumn]="'vendor_name'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getVendorOrderList()"></app-table-sorting>
                                         </th>
                                         <th width="20%" scope="col" class="min-width-3">
-                                            <app-table-sorting [fieldTitle]="'Total Price'" [thisColumn]="'total_price'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getVendorOrderList()"></app-table-sorting>
+                                            <app-table-sorting [fieldTitle]="'Order Total'" [thisColumn]="'order_total'" [(sortColumn)]="sortColumn" [(sortDirection)]="sortDirection" (sortData)="getVendorOrderList()"></app-table-sorting>
                                         </th>
                                     </tr>
                                 </thead>
@@ -46,7 +46,7 @@
                                         <td>{{getFormatId(data?.data().order_code)}}</td>
                                         <td>{{data?.data().order_date | date: 'short'}}</td>
                                         <td>{{data?.data().vendor?.data.vendor_name}}</td>
-                                        <td>{{data?.data().total_price | currency:'GBP'}}</td>
+                                        <td>{{data?.data().order_total | currency:'GBP'}}</td>
                                     </tr>
                                 </tbody>
                                 <tbody *ngIf="isFetchingData || !isDataAvailable">
