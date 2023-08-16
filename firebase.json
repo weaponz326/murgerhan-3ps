@@ -4,7 +4,7 @@
     "indexes": "firestore.indexes.json"
   },
   "hosting": {
-    "site": "mhh-3ps",
+    "site": "murgerhanhub-3p-portal",
     "public": "dist/murgerhan-3ps",
     "ignore": [
       "firebase.json",
