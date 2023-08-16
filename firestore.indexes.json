@@ -171,11 +171,95 @@
       ]
     },
     {
+      "collectionGroup": "factory_order",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "branch.id",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "created_at",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "factory_order_item",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "order",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "created_at",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "factory_order_item",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "order.id",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "created_at",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "factory_vendor_order",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "vendor.id",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "created_at",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "factory_vendor_order_item",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "order",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "created_at",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
       "collectionGroup": "housekeeping_incident",
       "queryScope": "COLLECTION",
       "fields": [
         {
           "fieldPath": "branch.id",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "created_at",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "housekeeping_incident",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "reported_to.id",
           "order": "ASCENDING"
         },
         {
@@ -329,6 +413,20 @@
       ]
     },
     {
+      "collectionGroup": "inventory_stock_batch",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "branch.id",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "created_at",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
       "collectionGroup": "inventory_stock_item",
       "queryScope": "COLLECTION",
       "fields": [
@@ -417,6 +515,20 @@
       ]
     },
     {
+      "collectionGroup": "maintenance_issue",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "reported_to.id",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "created_at",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
       "collectionGroup": "maintenance_issue_image",
       "queryScope": "COLLECTION",
       "fields": [
@@ -495,6 +607,20 @@
       ]
     },
     {
+      "collectionGroup": "maintenance_system_image",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "system",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "created_at",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
       "collectionGroup": "orders_order",
       "queryScope": "COLLECTION",
       "fields": [
@@ -516,6 +642,20 @@
           "fieldPath": "branch.id",
           "order": "ASCENDING"
         },
+        {
+          "fieldPath": "vendor.id",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "created_at",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "orders_order",
+      "queryScope": "COLLECTION",
+      "fields": [
         {
           "fieldPath": "vendor.id",
           "order": "ASCENDING"
