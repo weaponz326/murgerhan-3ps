@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { VendorsApiService } from 'src/app/services/modules-api/vendors-api/vendors-api.service';
@@ -24,6 +24,7 @@ export class OrderItemsComponent {
   ) { }
 
   @Output() setOrderTotal = new EventEmitter<any>();
+  @Input() submitted = false;
 
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
   @ViewChild('deleteModalTwoComponentReference', { read: DeleteModalTwoComponent, static: false }) deleteModal!: DeleteModalTwoComponent;

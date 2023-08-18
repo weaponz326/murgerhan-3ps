@@ -20,7 +20,7 @@
                                         <th width="7%" class="min-width-2">VAT (%)</th>
                                         <th width="10%" class="min-width-2">VAT (&pound;)</th>
                                         <th width="8%" class="p-0 min-width-2">
-                                            <button class="btn btn-primary btn-sm w-100" (click)="addOrderItem.openModal(lastItem)">
+                                            <button class="btn btn-primary btn-sm w-100" (click)="addOrderItem.openModal(lastItem)" [disabled]="submitted">
                                                 <i class="bi bi-plus"></i>
                                             </button>
                                         </th>
@@ -36,10 +36,10 @@
                                         <td>{{data?.data()?.factory_item?.data?.vat}}</td>
                                         <td>{{(data?.data().factory_item?.data?.price * data?.data().quantity) * (data?.data()?.factory_item?.data?.vat / 100) | currency:'GBP'}}</td>
                                         <td class="p-0">
-                                            <button class="btn btn-sm btn-success border w-50" (click)="openEditItem(data)">
+                                            <button class="btn btn-sm btn-success border w-50" (click)="openEditItem(data)" [disabled]="submitted">
                                                 <i class="bi bi-pen"></i>
                                             </button>
-                                            <button class="btn btn-sm btn-danger border w-50" (click)="confirmDelete(data.id)">
+                                            <button class="btn btn-sm btn-danger border w-50" (click)="confirmDelete(data.id)" [disabled]="submitted">
                                                 <i class="bi bi-trash"></i>
                                             </button>
                                         </td>

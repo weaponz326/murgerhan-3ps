@@ -6,15 +6,15 @@ export const environment = {
         projectId: "murgerhanhub",
         storageBucket: "murgerhanhub.appspot.com",
         messagingSenderId: "314027253691",
-        appId: "1:314027253691:web:ca19c4299a642cd6142e9e",
-        measurementId: "G-4DH5WHR5EE"
+        appId: "1:314027253691:web:ad5a05580368cd41142e9e",
+        measurementId: "G-2HWLEX27E5"
 
         // apiKey: "AIzaSyBT10IX6Y8ZJroL6jI75raWprbC01ATXY0",
         // authDomain: "weapons-7d089.firebaseapp.com",
         // projectId: "weapons-7d089",
         // storageBucket: "weapons-7d089.appspot.com",
         // messagingSenderId: "337928193877",
-        // appId: "1:337928193877:web:29572f0384cf1e3a6591dc",
-        // measurementId: "G-8L1YHLMYX9"
+        // appId: "1:337928193877:web:aa64d1dce4fe4bb76591dc",
+        // measurementId: "G-LLQLNRM53Q"
     }
 };

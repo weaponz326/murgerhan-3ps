@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { serverTimestamp } from 'firebase/firestore';
@@ -29,6 +29,7 @@ export class ViewOrderComponent {
     private formatId: FormatIdService,
   ) {}
 
+  @ViewChild('submitButtonElementReference', { read: ElementRef, static: false }) submitButtonElement!: ElementRef;
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
   @ViewChild('deleteModalOneComponentReference', { read: DeleteModalOneComponent, static: false }) deleteModal!: DeleteModalOneComponent;
   @ViewChild('selectBranchComponentReference', { read: SelectBranchComponent, static: false }) selectBranch!: SelectBranchComponent;
@@ -44,6 +45,7 @@ export class ViewOrderComponent {
   isFetchingData = false;
   isSavingOrder = false;
   isDeletingOrder = false;
+  isSubmitting = false;
   isSaved = false;
 
   minDate: any;
@@ -126,6 +128,25 @@ export class ViewOrderComponent {
       });
   }
 
+  submitOrder(){
+    this.isSubmitting = true;
+
+    const id = sessionStorage.getItem('vendors_order_id') as string;
+    let data = { sbmitted: true };
+
+    this.factoryApi.updateVendorOrder(id, data)
+      .then((res) => {
+        // console.log(res);
+        this.isSubmitting = false;
+        this.getVendorOrder();
+      })
+      .catch((err) => {
+        // console.log(err);
+        this.connectionToast.openToast();
+        this.isSubmitting = false;
+      });
+  }
+
   setOrderData(){
     this.orderForm.controls.orderCode.setValue(this.formatId.formatId(this.orderData.data().order_code, 5, "#", "RD"));
     this.orderForm.controls.orderDate.setValue(this.orderData.data().order_date);
@@ -146,6 +167,7 @@ export class ViewOrderComponent {
       order_date: this.orderForm.controls.orderDate.value,
       order_status: this.orderForm.controls.orderStatus.value as string,
       delivery_date: this.orderForm.controls.deliveryDate.value,
+      submitted: this.orderData.data().submitted,
       order_total: this.orderTotal,
       vendor: {
         id: this.selectedVendorData.id,
@@ -162,6 +184,14 @@ export class ViewOrderComponent {
 
   confirmDelete(){
     this.deleteModal.openModal();
+  }
+
+  openSubmitConfirmModal(){
+    this.submitButtonElement.nativeElement.click();
+  }
+
+  confirmSubmit(){
+    this.submitOrder();
   }
 
   // openBranchWindow(){

@@ -5,6 +5,7 @@ export class FactoryOrder {
     order_date!: any;
     order_status!: string;
     delivery_date!: any;
+    submitted!: boolean;
     order_total!: number;
     vendor!: {
         id: string;

@@ -27,6 +27,7 @@ export class VendorsPrintService {
       ['Vendor Name', ':', orderData.data().vendor.data.vendor_name],
       ['Order Status', ':', orderData.data().order_status],
       ['Delivery Date', ':', orderData.data().delivery_date],
+      // ['Submitted', ':', orderData?.data()?.submitted],      TODO: add later
     ]
 
     var orderItemListBody = [['No.', 'Item Name', 'Unit Price', 'Quantity', 'Total Price', 'VAT (%)', 'VAT (\u00A3)']];
@@ -40,7 +41,7 @@ export class VendorsPrintService {
       row.push(rowData.quantity);      
       row.push(rowData.factory_item.data.price * rowData.quantity);
       row.push(rowData.factory_item.data.vat);
-      row.push(rowData.factory_item?.data?.price * rowData.quantity) * (rowData.factory_item?.data?.vat / 100);
+      row.push((rowData.factory_item?.data?.price * rowData.quantity) * (rowData.factory_item?.data?.vat / 100));
       orderItemListBody.push(row);
     }
 
@@ -70,13 +71,13 @@ export class VendorsPrintService {
         layout: 'lightHorizontalLines',
         table: {
           headerRows: 1,
-          widths: ['6%', '25%', '10%', '12%', '10%', '6%', '10%'],
+          widths: ['6%', '38%', '12%', '12%', '12%', '10%', '10%'],
           body: orderItemListBody
         }
       }
     ]
 
-    var header = 'Murger Han Hub - Order';
+    var header = '';
     this.printPdf.openPdf(header, content);
   }
 

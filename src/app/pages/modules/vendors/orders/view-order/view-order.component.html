@@ -64,6 +64,13 @@
                                     <input type="date" formControlName="deliveryDate" [min]="minDate" class="form-control form-control-sm w-100">
                                 </div>
                             </div>
+
+                            <div class="row mb-1">
+                                <div class="col-md-4"><label class="float-md-end float-sm-start mt-1">Submitted :</label></div>
+                                <div class="col-md-8">
+                                    <td><input [checked]="orderData?.data()?.submitted" type="checkbox" class="mt-2 form-check-input"></td>
+                                </div>
+                            </div>
                             
                             <div class="row mt-3">
                                 <div class="col">
@@ -97,25 +104,49 @@
 
 <!-- order items comonent reference -->
 
-<app-order-items (setOrderTotal)="orderTotal = $event"></app-order-items>
+<app-order-items [submitted]="orderData?.data()?.submitted" (setOrderTotal)="orderTotal = $event"></app-order-items>
 
 <div class="row">
     <div class="col-md-9">
         <div class="row">
-            <div class="offset-md-7 col-md-5">
+            <div class="offset-md-6 col-md-6">
                 
                 <div class="card shadow-sm mb-4">
                     <div class="card-body">
                             
-                        <button class="btn btn-light border" (click)="onPrint()">
-                            <i class="bi bi-printer me-3"></i>
-                            Generate Invoice
+                        <button class="btn btn-primary border float-end ms-3" [disabled]="isSubmitting" (click)="openSubmitConfirmModal()">
+                            <i class="bi bi-upload me-3"></i>
+                            Submit Order
                         </button>
+
+                        <button class="btn btn-primary border float-end ms-3" (click)="onPrint()">
+                            <i class="bi bi-printer me-3"></i>
+                            Print Invoice
+                        </button>                        
 
                     </div>
                 </div>
                             
             </div>
+        </div>
+    </div>
+</div>
+
+<button [hidden]="true" #submitButtonElementReference data-bs-toggle="modal" data-bs-target="#orderSubmitModalOne">
+    Launch demo modal
+</button>
+
+<div class="modal fade form-modal" id="orderSubmitModalOne" tabindex="-1" aria-labelledby="orderSubmitModalOneLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content text-center">
+
+            <div class="modal-body p-3">
+                <p class="lead">Submitting Order!</p>
+                <p class="pb-3">Further Editing will be disabled after submission</p>            
+                <button class="btn btn-sm btn-success mx-2 form-control-btn" data-bs-dismiss="modal" data-bs-toggle="modal" (click)="confirmSubmit()">Continue</button>
+                <button class="btn btn-sm btn-warning mx-2 form-control-btn" data-bs-dismiss="modal" data-bs-toggle="modal">Cancel</button>
+            </div>
+            
         </div>
     </div>
 </div>
