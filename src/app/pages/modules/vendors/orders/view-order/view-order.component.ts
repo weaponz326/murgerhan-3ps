@@ -12,6 +12,7 @@ import { FormatIdService } from 'src/app/services/module-utilities/format-id/for
 import { ConnectionToastComponent } from 'src/app/components/module-utilities/connection-toast/connection-toast.component';
 import { DeleteModalOneComponent } from 'src/app/components/module-utilities/delete-modal-one/delete-modal-one.component';
 import { SelectBranchComponent } from 'src/app/components/select-windows/select-branch/select-branch.component';
+import { OrderItemsComponent } from '../order-items/order-items.component';
 
 
 @Component({
@@ -31,6 +32,7 @@ export class ViewOrderComponent {
 
   @ViewChild('submitButtonElementReference', { read: ElementRef, static: false }) submitButtonElement!: ElementRef;
   @ViewChild('connectionToastComponentReference', { read: ConnectionToastComponent, static: false }) connectionToast!: ConnectionToastComponent;
+  @ViewChild('orderItemsComponentReference', { read: OrderItemsComponent, static: false }) orderItems!: OrderItemsComponent;
   @ViewChild('deleteModalOneComponentReference', { read: DeleteModalOneComponent, static: false }) deleteModal!: DeleteModalOneComponent;
   @ViewChild('selectBranchComponentReference', { read: SelectBranchComponent, static: false }) selectBranch!: SelectBranchComponent;
 
@@ -53,7 +55,7 @@ export class ViewOrderComponent {
   orderForm = new FormGroup({
     orderCode: new FormControl({value: '', disabled: true}),
     orderDate: new FormControl({value: '', disabled: true}),
-    orderStatus: new FormControl(''),
+    orderStatus: new FormControl({value: '', disabled: true}),
     deliveryDate: new FormControl(),
   })
 
@@ -132,13 +134,14 @@ export class ViewOrderComponent {
     this.isSubmitting = true;
 
     const id = sessionStorage.getItem('vendors_order_id') as string;
-    let data = { sbmitted: true };
+    let data = { submitted: true };
 
     this.factoryApi.updateVendorOrder(id, data)
       .then((res) => {
         // console.log(res);
         this.isSubmitting = false;
         this.getVendorOrder();
+        this.orderItems.getVendorOrderItemList();
       })
       .catch((err) => {
         // console.log(err);
