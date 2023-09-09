@@ -19,6 +19,7 @@ export class TablePaginatorComponent {
   changePage(event: any, page: any){
     event.preventDefault();
     this.currentPage = page;
+    this.currentPageChange.emit(this.currentPage);
     this.pageData.emit();
   }
 
