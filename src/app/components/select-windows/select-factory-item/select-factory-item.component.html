@@ -15,7 +15,7 @@
 
                 <div class="row mb-3">
                     <div class="col">
-                        <input [(ngModel)]="filterText" (change)="getFactoryItemList()" class="form-control form-control-sm w-25 float-end" type="search" placeholder="search stock items">
+                        <input [(ngModel)]="filterText" (change)="getFactoryItemList()" class="form-control form-control-sm w-25 float-end" type="search" placeholder="search factory-* items">
                         <button [disabled]="isFetchingData" (click)="getFactoryItemList()" class="btn btn-light btn-sm border float-end page-refresh-btn me-3">
                             <i class="bi bi-arrow-clockwise"></i>
                         </button>

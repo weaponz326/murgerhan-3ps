@@ -62,10 +62,6 @@ export class SelectFactoryItemComponent {
             this.currentPage = 0;
             this.isDataAvailable = false;
           }
-          else{
-            this.currentPage = 1;
-            this.isDataAvailable = true;
-          }
 
           this.aggregateData();
         },
